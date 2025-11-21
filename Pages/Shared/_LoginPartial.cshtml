@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Identity
+@using GestionCentreDeFormation.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="nav-menu d-flex align-items-center gap-3 list-unstyled m-0 p-0">
+@if (SignInManager.IsSignedIn(User))
+{
+    <li>
+        <a class="nav-link text-white fw-bold text-uppercase" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">HELLO, @User.Identity?.Name!</a>
+    </li>
+    <li>
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
+            <button type="submit" class="btn btn-link nav-link text-white fw-bold text-uppercase text-decoration-none" style="border: none; cursor: pointer; background: none; padding: 0;">LOGOUT</button>
+        </form>
+    </li>
+}
+else
+{
+    <li>
+        <a class="btn neo-btn neo-btn-primary fw-black text-uppercase" asp-area="Identity" asp-page="/Account/Login" style="border: 2px solid #fff; box-shadow: 4px 4px 0px #fff; color: #fff; background: #000;">JOIN US</a>
+    </li>
+}
+</ul>

@@ -1,0 +1,345 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+    /* Neo-Brutalist Overrides for Home Page */
+    :root {
+        --neo-border: 3px solid #000000;
+        --neo-shadow: 6px 6px 0px #000000;
+        --neo-shadow-hover: 10px 10px 0px #000000;
+        --neo-blue: #0057FF;
+        --neo-yellow: #FFE600;
+        --neo-orange: #FF4400;
+    }
+
+    .neo-text-massive {
+        font-size: clamp(3rem, 8vw, 6rem);
+        font-weight: 900;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
+    }
+
+    .neo-btn {
+        border: var(--neo-border);
+        box-shadow: var(--neo-shadow);
+        font-weight: 800;
+        text-transform: uppercase;
+        padding: 1rem 2rem;
+        transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border-radius: 0 !important;
+    }
+
+    .neo-btn:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: var(--neo-shadow-hover);
+    }
+
+    .neo-btn-primary {
+        background-color: var(--neo-blue);
+        color: #fff;
+    }
+    
+    .neo-btn-primary:hover {
+        background-color: #000;
+        color: #fff;
+        border-color: #000;
+    }
+
+    .neo-btn-outline {
+        background-color: #fff;
+        color: #000;
+    }
+
+    .neo-card {
+        border: var(--neo-border);
+        background: #fff;
+        transition: all 0.3s ease;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .neo-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--neo-shadow);
+    }
+
+    .neo-card-img {
+        border-bottom: var(--neo-border);
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+        background-color: #f0f0f0;
+    }
+
+    .neo-tag {
+        background: #000;
+        color: #fff;
+        padding: 0.25rem 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+
+    .stats-strip {
+        background-color: #000;
+        color: #fff;
+        border-top: var(--neo-border);
+        border-bottom: var(--neo-border);
+    }
+
+    .stat-item {
+        border-right: 1px solid #333;
+    }
+
+    .stat-item:last-child {
+        border-right: none;
+    }
+
+    .trust-icon-box {
+        border: var(--neo-border);
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        background: var(--neo-yellow);
+        box-shadow: 4px 4px 0px #000;
+    }
+    
+    .marquee-container {
+        overflow: hidden;
+        white-space: nowrap;
+        background: var(--neo-yellow);
+        border-bottom: var(--neo-border);
+        padding: 0.5rem 0;
+    }
+    
+    .marquee-content {
+        display: inline-block;
+        animation: marquee 20s linear infinite;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 1.2rem;
+    }
+    
+    @@keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+</style>
+
+<!-- Marquee Strip -->
+<div class="marquee-container">
+    <div class="marquee-content">
+        NEW BATCH STARTING SOON • MASTER .NET 8 • BECOME A FULL STACK HERO • SWISS QUALITY EDUCATION • ENROLL NOW • NEW BATCH STARTING SOON • MASTER .NET 8 • BECOME A FULL STACK HERO • SWISS QUALITY EDUCATION • ENROLL NOW •
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="container py-5 my-5">
+    <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+            <h1 class="neo-text-massive mb-4">
+                Forge Your <span style="color: var(--neo-blue); text-decoration: underline; text-decoration-thickness: 5px;">Future.</span>
+            </h1>
+            <p class="lead fw-bold mb-5" style="font-size: 1.5rem; max-width: 90%;">
+                Master .NET, React, and AI with industry experts. No fluff, just hard skills.
+            </p>
+            <div class="d-flex gap-3 flex-wrap">
+                <a asp-page="/Courses/Index" class="btn neo-btn neo-btn-primary btn-lg">
+                    Explore Courses
+                </a>
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn neo-btn neo-btn-outline btn-lg">
+                    Login Account
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div style="position: relative;">
+                <!-- Decorative back square -->
+                <div style="position: absolute; top: 20px; left: 20px; width: 100%; height: 100%; background-color: var(--neo-orange); border: var(--neo-border); z-index: -1;"></div>
+                
+                <img src="https://placehold.co/600x400/EEE/31343C?text=CODE+YOUR+FUTURE" 
+                     alt="Hero Image" 
+                     class="img-fluid w-100" 
+                     style="border: var(--neo-border); box-shadow: var(--neo-shadow);">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Strip -->
+<section class="stats-strip py-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 stat-item mb-4 mb-md-0">
+                <h2 class="display-3 fw-black mb-0" style="font-weight: 900;">500+</h2>
+                <p class="text-uppercase fw-bold letter-spacing-2 mb-0" style="letter-spacing: 2px; color: #ccc;">Graduates</p>
+            </div>
+            <div class="col-md-4 stat-item mb-4 mb-md-0">
+                <h2 class="display-3 fw-black mb-0" style="font-weight: 900;">100%</h2>
+                <p class="text-uppercase fw-bold letter-spacing-2 mb-0" style="letter-spacing: 2px; color: #ccc;">Hands-on</p>
+            </div>
+            <div class="col-md-4 stat-item">
+                <h2 class="display-3 fw-black mb-0" style="font-weight: 900;">20+</h2>
+                <p class="text-uppercase fw-bold letter-spacing-2 mb-0" style="letter-spacing: 2px; color: #ccc;">Expert Mentors</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses -->
+<section class="container py-5 my-5">
+    <div class="d-flex justify-content-between align-items-end mb-5">
+        <h2 class="display-4 fw-black text-uppercase mb-0" style="font-weight: 900; border-left: 10px solid var(--neo-blue); padding-left: 20px; line-height: 0.8;">
+            Popular<br>Tracks
+        </h2>
+        <a asp-page="/Courses/Index" class="text-decoration-none text-dark fw-bold text-uppercase d-none d-md-block">
+            View All Tracks <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+    </div>
+
+    <div class="row g-4">
+        <!-- Course 1 -->
+        <div class="col-md-4">
+            <div class="neo-card p-0">
+                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80" class="neo-card-img" alt="Course">
+                <div class="p-4 d-flex flex-column h-100">
+                    <div>
+                        <span class="neo-tag">Backend</span>
+                        <h3 class="fw-bold text-uppercase h4 mt-2">Full Stack .NET</h3>
+                        <p class="text-muted small fw-bold">Master C#, EF Core, and Azure architecture.</p>
+                    </div>
+                    <div class="mt-auto pt-3 border-top border-2 border-dark d-flex justify-content-between align-items-center">
+                        <span class="fw-black h5 mb-0">DH 1'200</span>
+                        <i class="bi bi-arrow-up-right-circle-fill fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course 2 -->
+        <div class="col-md-4">
+            <div class="neo-card p-0">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" class="neo-card-img" alt="Course">
+                <div class="p-4 d-flex flex-column h-100">
+                    <div>
+                        <span class="neo-tag" style="background: var(--neo-orange);">Data</span>
+                        <h3 class="fw-bold text-uppercase h4 mt-2">Data Science Pro</h3>
+                        <p class="text-muted small fw-bold">Python, Machine Learning, and Big Data analytics.</p>
+                    </div>
+                    <div class="mt-auto pt-3 border-top border-2 border-dark d-flex justify-content-between align-items-center">
+                        <span class="fw-black h5 mb-0">DH 1'500</span>
+                        <i class="bi bi-arrow-up-right-circle-fill fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Course 3 -->
+        <div class="col-md-4">
+            <div class="neo-card p-0">
+                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" class="neo-card-img" alt="Course">
+                <div class="p-4 d-flex flex-column h-100">
+                    <div>
+                        <span class="neo-tag" style="background: var(--neo-yellow); color: #000;">Design</span>
+                        <h3 class="fw-bold text-uppercase h4 mt-2">UX/UI Masterclass</h3>
+                        <p class="text-muted small fw-bold">Figma, User Research, and Prototyping.</p>
+                    </div>
+                    <div class="mt-auto pt-3 border-top border-2 border-dark d-flex justify-content-between align-items-center">
+                        <span class="fw-black h5 mb-0">DH 950</span>
+                        <i class="bi bi-arrow-up-right-circle-fill fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mt-4 d-md-none">
+        <a asp-page="/Courses/Index" class="btn neo-btn neo-btn-outline w-100">View All Tracks</a>
+    </div>
+</section>
+
+<!-- Why Us / Trust Section -->
+<section class="container py-5 mb-5">
+    <div class="row g-5">
+        <div class="col-lg-4">
+            <h2 class="display-5 fw-black text-uppercase mb-4" style="font-weight: 900;">Why<br>Choose<br>Us?</h2>
+            <p class="lead fw-bold">We don't just teach code. We build careers.</p>
+            <p>Our curriculum is forged in the fires of industry demands. No outdated theories, only practical, job-ready skills.</p>
+        </div>
+        <div class="col-lg-8">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                        <div class="trust-icon-box me-4 flex-shrink-0">
+                            <i class="bi bi-laptop"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold text-uppercase">Real Projects</h4>
+                            <p class="small fw-bold text-muted">Build production-grade applications, not just "Hello World".</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                        <div class="trust-icon-box me-4 flex-shrink-0" style="background: var(--neo-blue); color: white;">
+                            <i class="bi bi-award"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold text-uppercase">Certified</h4>
+                            <p class="small fw-bold text-muted">Get recognized certifications that employers actually value.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                        <div class="trust-icon-box me-4 flex-shrink-0" style="background: var(--neo-orange); color: white;">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold text-uppercase">Mentorship</h4>
+                            <p class="small fw-bold text-muted">1-on-1 guidance from senior engineers at top tech companies.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                        <div class="trust-icon-box me-4 flex-shrink-0" style="background: #000; color: white;">
+                            <i class="bi bi-rocket-takeoff"></i>
+                        </div>
+                        <div>
+                            <h4 class="fw-bold text-uppercase">Career Launch</h4>
+                            <p class="small fw-bold text-muted">Resume reviews, mock interviews, and direct hiring partner referrals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter / CTA -->
+<section class="py-5" style="background: var(--neo-blue); border-top: var(--neo-border);">
+    <div class="container text-center text-white py-4">
+        <h2 class="display-4 fw-black text-uppercase mb-3" style="font-weight: 900;">Ready to Start?</h2>
+        <p class="lead fw-bold mb-4">Join the next cohort and transform your career.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control p-3 fw-bold" placeholder="ENTER YOUR EMAIL" style="border: var(--neo-border); border-radius: 0;">
+                    <button class="btn neo-btn" style="background: var(--neo-yellow); color: #000; border-left: none;" type="button">GET SYLLABUS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

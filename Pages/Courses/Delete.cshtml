@@ -1,0 +1,45 @@
+@page
+@model GestionCentreDeFormation.Pages.Courses.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Course";
+}
+
+<div class="container py-16">
+    <div class="mb-8">
+        <a asp-page="./Index" class="btn btn-outline">&larr; Back to Courses</a>
+    </div>
+
+    <div class="grid">
+        <div class="col-8">
+            <h1 style="font-size: var(--font-size-3xl); margin-bottom: var(--space-2); color: var(--color-accent);">Delete Course</h1>
+            <p style="color: var(--color-text-light); margin-bottom: var(--space-12);">Are you sure you want to delete this course? This action cannot be undone.</p>
+
+            <div style="background-color: var(--color-bg-alt); padding: var(--space-8); margin-bottom: var(--space-8);">
+                <h2 style="font-size: var(--font-size-2xl); margin-bottom: var(--space-4);">@Html.DisplayFor(model => model.Course.Title)</h2>
+                <p style="color: var(--color-text-light); margin-bottom: var(--space-6);">@Html.DisplayFor(model => model.Course.Description)</p>
+                
+                <div class="grid" style="grid-template-columns: repeat(4, 1fr); gap: var(--space-4);">
+                    <div>
+                        <span style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: var(--space-1); color: var(--color-text-light);">Start Date</span>
+                        <span style="font-weight: 600;">@Model.Course.StartDate.ToShortDateString()</span>
+                    </div>
+                    <div>
+                        <span style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: var(--space-1); color: var(--color-text-light);">Capacity</span>
+                        <span style="font-weight: 600;">@Model.Course.Capacity</span>
+                    </div>
+                    <div>
+                        <span style="font-size: var(--font-size-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: var(--space-1); color: var(--color-text-light);">Price</span>
+                        <span style="font-weight: 600;">CHF @Model.Course.Price</span>
+                    </div>
+                </div>
+            </div>
+
+            <form method="post">
+                <input type="hidden" asp-for="Course.Id" />
+                <button type="submit" class="btn btn-lg" style="background-color: var(--color-accent); border-color: var(--color-accent);">Confirm Delete</button>
+                <a asp-page="./Index" class="btn btn-lg btn-outline" style="margin-left: var(--space-4);">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
