@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GestionCentreDeFormation.Data;
 using GestionCentreDeFormation.Models;
 
-namespace GestionCentreDeFormation.Pages.Courses
+namespace GestionCentreDeFormation.Pages.Admin.Courses
 {
     [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
@@ -33,6 +34,7 @@ namespace GestionCentreDeFormation.Pages.Courses
                 return NotFound();
             }
             Course = course;
+            ViewData["InstructorId"] = new SelectList(_context.Instructors, "Id", "Name");
             return Page();
         }
 

@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using GestionCentreDeFormation.Data;
+using GestionCentreDeFormation.Models;
+using Microsoft.AspNetCore.Authorization;
+
+namespace GestionCentreDeFormation.Pages.Admin.Instructors
+{
+    [Authorize(Roles = "Admin")]
+    public class IndexModel : PageModel
+    {
+        private readonly GestionCentreDeFormation.Data.ApplicationDbContext _context;
+
+        public IndexModel(GestionCentreDeFormation.Data.ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IList<Instructor> Instructor { get;set; } = default!;
+
+        public async Task OnGetAsync()
+        {
+            Instructor = await _context.Instructors.ToListAsync();
+        }
+    }
+}

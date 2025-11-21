@@ -28,28 +28,60 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Courses/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlcy9DcmVhdGUuY3NodG1s
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Courses/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQ291cnNlcy9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Courses/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlcy9EZWxldGUuY3NodG1s
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Courses/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQ291cnNlcy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Courses/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQ291cnNlcy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Courses/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vQ291cnNlcy9JbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Instructors/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vSW5zdHJ1Y3RvcnMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Instructors/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vSW5zdHJ1Y3RvcnMvRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Instructors/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vSW5zdHJ1Y3RvcnMvRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Instructors/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vSW5zdHJ1Y3RvcnMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Instructors/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vSW5zdHJ1Y3RvcnMvSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Settings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vU2V0dGluZ3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Admin/Students.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4vU3R1ZGVudHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Courses/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlcy9EZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Courses/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlcy9FZGl0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Courses/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291cnNlcy9JbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Dashboard/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Error.cshtml]
@@ -62,6 +94,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19BZG1pbkxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Shared/_AdminSidebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19BZG1pblNpZGViYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/Pages/Shared/_LoginPartial.cshtml]

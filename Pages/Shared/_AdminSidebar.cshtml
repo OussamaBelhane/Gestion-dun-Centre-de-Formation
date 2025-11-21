@@ -1,0 +1,78 @@
+<div class="d-flex flex-column h-100">
+    <div class="p-4 border-bottom border-white border-2">
+        <h4 class="mb-0 fw-black text-uppercase tracking-tighter">Admin<br/>Portal</h4>
+    </div>
+    
+    <nav class="nav flex-column flex-grow-1 p-0 mt-2">
+        @{
+            var currentPath = Context.Request.Path.ToString().ToLower();
+        }
+
+        <a href="/Admin" class="nav-link rounded-0 py-3 px-4 @(currentPath == "/admin" || currentPath == "/admin/" ? "active" : "")">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span class="fw-bold text-uppercase">Overview</span>
+            </div>
+        </a>
+
+        <a href="/Admin/Courses" class="nav-link rounded-0 py-3 px-4 @(currentPath.Contains("/admin/courses") ? "active" : "")">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                <span class="fw-bold text-uppercase">Manage Courses</span>
+            </div>
+        </a>
+
+        <a href="/Admin/Instructors" class="nav-link rounded-0 py-3 px-4 @(currentPath.Contains("/admin/instructors") ? "active" : "")">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-person-badge-fill"></i>
+                <span class="fw-bold text-uppercase">Instructors</span>
+            </div>
+        </a>
+
+        <a href="/Admin/Students" class="nav-link rounded-0 py-3 px-4 @(currentPath.Contains("/admin/students") ? "active" : "")">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-people-fill"></i>
+                <span class="fw-bold text-uppercase">Students</span>
+            </div>
+        </a>
+
+        <a href="/Admin/Settings" class="nav-link rounded-0 py-3 px-4 @(currentPath.Contains("/admin/settings") ? "active" : "")">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-gear-fill"></i>
+                <span class="fw-bold text-uppercase">Settings</span>
+            </div>
+        </a>
+    </nav>
+
+    <div class="p-4 mt-auto border-top border-white border-2">
+        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+            <button type="submit" class="btn btn-outline-light w-100 rounded-0 fw-bold text-uppercase" style="border-width: 2px;">
+                <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </button>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Sidebar Specific Styles */
+    .nav-link {
+        color: #ffffff;
+        border-left: 6px solid transparent;
+        transition: all 0.2s ease;
+    }
+
+    .nav-link:hover {
+        background-color: #222;
+        color: #fff;
+    }
+
+    .nav-link.active {
+        background-color: #ffffff;
+        color: #000000;
+        border-left: 6px solid #FF4400; /* Accent color for active state */
+    }
+    
+    .nav-link.active i {
+        color: #000000;
+    }
+</style>

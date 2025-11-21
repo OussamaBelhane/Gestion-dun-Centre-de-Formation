@@ -1,0 +1,52 @@
+@page
+@model GestionCentreDeFormation.Pages.Admin.Instructors.EditModel
+
+@{
+    ViewData["Title"] = "Edit Instructor";
+    Layout = "_AdminLayout";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="admin-card">
+            <h2 class="mb-4 fw-black text-uppercase border-bottom border-2 border-dark pb-2">Edit Instructor</h2>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Instructor.Id" />
+                
+                <div class="mb-3">
+                    <label asp-for="Instructor.Name" class="form-label fw-bold text-uppercase">Name</label>
+                    <input asp-for="Instructor.Name" class="form-control form-control-admin" />
+                    <span asp-validation-for="Instructor.Name" class="text-danger fw-bold"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Instructor.Title" class="form-label fw-bold text-uppercase">Title</label>
+                    <input asp-for="Instructor.Title" class="form-control form-control-admin" />
+                    <span asp-validation-for="Instructor.Title" class="text-danger fw-bold"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Instructor.Bio" class="form-label fw-bold text-uppercase">Bio</label>
+                    <textarea asp-for="Instructor.Bio" class="form-control form-control-admin" rows="4"></textarea>
+                    <span asp-validation-for="Instructor.Bio" class="text-danger fw-bold"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Instructor.ImageUrl" class="form-label fw-bold text-uppercase">Image URL</label>
+                    <input asp-for="Instructor.ImageUrl" class="form-control form-control-admin" />
+                    <span asp-validation-for="Instructor.ImageUrl" class="text-danger fw-bold"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-page="./Index" class="btn btn-outline-dark rounded-0 fw-bold text-uppercase border-2 px-4">Back to List</a>
+                    <button type="submit" class="btn btn-admin btn-admin-primary px-5">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

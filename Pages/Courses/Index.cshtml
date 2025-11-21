@@ -207,12 +207,6 @@
     <!-- Header Section -->
     <div class="d-flex justify-content-between align-items-center mb-5">
         <h1 class="display-4 fw-black text-uppercase m-0" style="font-weight: 900;">Course Catalog</h1>
-        @if (User.IsInRole("Admin"))
-        {
-            <a asp-page="Create" class="btn neo-btn-search" style="background: #000; box-shadow: 4px 4px 0px #555;">
-                <i class="bi bi-plus-lg me-2"></i> NEW COURSE
-            </a>
-        }
     </div>
 
     <!-- Filter Toolbar -->
@@ -240,18 +234,6 @@
         @foreach (var item in Model.Course) {
             <div class="col">
                 <div class="course-card">
-                    <!-- Admin Controls -->
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <div class="admin-controls">
-                            <a asp-page="./Edit" asp-route-id="@item.Id" class="admin-btn" title="Edit">
-                                <i class="bi bi-pencil-fill" style="font-size: 0.8rem;"></i>
-                            </a>
-                            <a asp-page="./Delete" asp-route-id="@item.Id" class="admin-btn" title="Delete">
-                                <i class="bi bi-trash-fill" style="font-size: 0.8rem;"></i>
-                            </a>
-                        </div>
-                    }
 
                     <div class="course-img-container">
                         <div class="category-tag">TRACK</div>

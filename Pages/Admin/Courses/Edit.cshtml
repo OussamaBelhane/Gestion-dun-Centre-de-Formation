@@ -1,8 +1,9 @@
 @page
-@model GestionCentreDeFormation.Pages.Courses.EditModel
+@model GestionCentreDeFormation.Pages.Admin.Courses.EditModel
 
 @{
-    ViewData["Title"] = "Edit Course";
+    ViewData["Title"] = "Edit";
+    Layout = "_AdminLayout";
 }
 
 <div class="container py-16">
@@ -25,7 +26,34 @@
                     <span asp-validation-for="Course.Title" class="text-danger"></span>
                 </div>
                 
-                <div class="form-group">
+                <div class="mb-3">
+                    <label asp-for="Course.Price" class="form-label fw-bold text-uppercase">Price</label>
+                    <input asp-for="Course.Price" class="form-control form-control-admin" />
+                    <span asp-validation-for="Course.Price" class="text-danger fw-bold"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Course.ImageUrl" class="form-label fw-bold text-uppercase">Course Image URL</label>
+                    <input asp-for="Course.ImageUrl" class="form-control form-control-admin" />
+                    <span asp-validation-for="Course.ImageUrl" class="text-danger fw-bold"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Course.WhatYoullLearn" class="form-label fw-bold text-uppercase">What You'll Learn</label>
+                    <textarea asp-for="Course.WhatYoullLearn" class="form-control form-control-admin" rows="4"></textarea>
+                    <span asp-validation-for="Course.WhatYoullLearn" class="text-danger fw-bold"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Course.InstructorId" class="form-label fw-bold text-uppercase">Instructor</label>
+                    <select asp-for="Course.InstructorId" class="form-control form-control-admin" asp-items="ViewBag.InstructorId">
+                        <option value="">-- Select Instructor --</option>
+                    </select>
+                    <span asp-validation-for="Course.InstructorId" class="text-danger fw-bold"></span>
+                </div>
+
+                <div class="row mb-4">
+              <div class="form-group">
                     <label asp-for="Course.Description" style="font-weight: 700; text-transform: uppercase; font-size: var(--font-size-xs); letter-spacing: 0.1em; margin-bottom: var(--space-2); display: block;"></label>
                     <textarea asp-for="Course.Description" class="form-control" rows="4"></textarea>
                     <span asp-validation-for="Course.Description" class="text-danger"></span>

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using GestionCentreDeFormation.Data;
 using GestionCentreDeFormation.Models;
 
-namespace GestionCentreDeFormation.Pages.Courses
+namespace GestionCentreDeFormation.Pages.Admin.Courses
 {
     [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel

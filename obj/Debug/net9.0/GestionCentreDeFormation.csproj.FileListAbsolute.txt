@@ -310,3 +310,4 @@
 /home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/obj/Debug/net9.0/GestionCentreDeFormation.genruntimeconfig.cache
 /home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/obj/Debug/net9.0/ref/GestionCentreDeFormation.dll
 /home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/obj/Debug/net9.0/compressed/jmzem29b1q-bqlp314ta1.gz
+/home/invictus/Documents/Project/DotNet/Gestion Centre de Formation/obj/Debug/net9.0/GestionCentreDeFormation.sourcelink.json

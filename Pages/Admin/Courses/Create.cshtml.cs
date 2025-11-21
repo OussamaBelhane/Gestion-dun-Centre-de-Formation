@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using GestionCentreDeFormation.Data;
 using GestionCentreDeFormation.Models;
 
-namespace GestionCentreDeFormation.Pages.Courses
+namespace GestionCentreDeFormation.Pages.Admin.Courses
 {
     [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
@@ -18,6 +19,7 @@ namespace GestionCentreDeFormation.Pages.Courses
 
         public IActionResult OnGet()
         {
+            ViewData["InstructorId"] = new SelectList(_context.Instructors, "Id", "Name");
             return Page();
         }
 

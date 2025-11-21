@@ -30,7 +30,9 @@ namespace GestionCentreDeFormation.Pages.Courses
                 return Page();
             }
 
-            var course = await _context.Courses.FirstOrDefaultAsync(m => m.Id == id);
+            var course = await _context.Courses
+                .Include(c => c.Instructor)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (course == null)
             {
                 // Fallback for demo/verification if course not found in DB

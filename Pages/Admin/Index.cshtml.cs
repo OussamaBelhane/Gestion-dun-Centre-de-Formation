@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace GestionCentreDeFormation.Pages.Dashboard
+namespace GestionCentreDeFormation.Pages.Admin
 {
     [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel

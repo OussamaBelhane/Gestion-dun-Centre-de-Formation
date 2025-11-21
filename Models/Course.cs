@@ -23,5 +23,12 @@ public class Course
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
 
+    public string? ImageUrl { get; set; }
+
+    public string? WhatYoullLearn { get; set; }
+
+    public int? InstructorId { get; set; }
+    public Instructor? Instructor { get; set; }
+
     public ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
 }

@@ -9,6 +9,12 @@
     <li>
         <a class="nav-link text-white fw-bold text-uppercase" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">HELLO, @User.Identity?.Name!</a>
     </li>
+    @if (User.IsInRole("Admin"))
+    {
+        <li>
+            <a class="nav-link text-white fw-bold text-uppercase" asp-page="/Admin/Index" style="color: #FF4400 !important;">DASHBOARD</a>
+        </li>
+    }
     <li>
         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
             <button type="submit" class="btn btn-link nav-link text-white fw-bold text-uppercase text-decoration-none" style="border: none; cursor: pointer; background: none; padding: 0;">LOGOUT</button>

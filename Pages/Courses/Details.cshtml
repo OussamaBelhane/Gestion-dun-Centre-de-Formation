@@ -4,15 +4,22 @@
 @{
     ViewData["Title"] = Model.Course.Title;
     
-    // Replicating Image Logic for consistency (Temporary solution until DB update)
-    string imgUrl = "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80"; 
-    if (Model.Course.Title.Contains("REACT") || Model.Course.Title.Contains("JS")) imgUrl = "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80";
-    else if (Model.Course.Title.Contains("UX") || Model.Course.Title.Contains("DESIGN")) imgUrl = "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80";
-    else if (Model.Course.Title.Contains("DEVOPS")) imgUrl = "https://images.unsplash.com/photo-1618401471353-b74a07ddcd5e?w=1200&q=80";
-    else if (Model.Course.Title.Contains("CLOUD")) imgUrl = "https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=1200&q=80";
-    else if (Model.Course.Title.Contains("DATA")) imgUrl = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80";
-    else if (Model.Course.Title.Contains("CYBER") || Model.Course.Title.Contains("SECURITY")) imgUrl = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80";
-    else if (Model.Course.Title.Contains("MOBILE") || Model.Course.Title.Contains("FLUTTER")) imgUrl = "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&q=80";
+    // Image Logic
+    string imgUrl = !string.IsNullOrEmpty(Model.Course.ImageUrl) 
+        ? Model.Course.ImageUrl 
+        : "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80"; // Default fallback
+    
+    // Only use keyword fallback if no specific image is set
+    if (string.IsNullOrEmpty(Model.Course.ImageUrl))
+    {
+        if (Model.Course.Title.Contains("REACT") || Model.Course.Title.Contains("JS")) imgUrl = "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80";
+        else if (Model.Course.Title.Contains("UX") || Model.Course.Title.Contains("DESIGN")) imgUrl = "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80";
+        else if (Model.Course.Title.Contains("DEVOPS")) imgUrl = "https://images.unsplash.com/photo-1618401471353-b74a07ddcd5e?w=1200&q=80";
+        else if (Model.Course.Title.Contains("CLOUD")) imgUrl = "https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=1200&q=80";
+        else if (Model.Course.Title.Contains("DATA")) imgUrl = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80";
+        else if (Model.Course.Title.Contains("CYBER") || Model.Course.Title.Contains("SECURITY")) imgUrl = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80";
+        else if (Model.Course.Title.Contains("MOBILE") || Model.Course.Title.Contains("FLUTTER")) imgUrl = "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&q=80";
+    }
 }
 
 <style>
@@ -112,51 +119,50 @@
             </div>
 
             <!-- What You'll Learn -->
-            <div class="mb-5">
-                <h2 class="fw-bold text-uppercase border-bottom border-3 border-dark pb-2 mb-4">What You'll Learn</h2>
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <div class="neo-list-item">
-                            <div class="check-icon"><i class="bi bi-check-lg"></i></div>
-                            <span class="fw-bold">Industry Standard Tools</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="neo-list-item">
-                            <div class="check-icon"><i class="bi bi-check-lg"></i></div>
-                            <span class="fw-bold">Real-world Projects</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="neo-list-item">
-                            <div class="check-icon"><i class="bi bi-check-lg"></i></div>
-                            <span class="fw-bold">Expert Mentorship</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="neo-list-item">
-                            <div class="check-icon"><i class="bi bi-check-lg"></i></div>
-                            <span class="fw-bold">Career Guidance</span>
-                        </div>
+            @if (!string.IsNullOrEmpty(Model.Course.WhatYoullLearn))
+            {
+                <div class="mb-5">
+                    <h2 class="fw-bold text-uppercase border-bottom border-3 border-dark pb-2 mb-4">What You'll Learn</h2>
+                    <div class="row g-3">
+                        @foreach (var item in Model.Course.WhatYoullLearn.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <div class="col-md-6">
+                                <div class="neo-list-item">
+                                    <div class="check-icon"><i class="bi bi-check-lg"></i></div>
+                                    <span class="fw-bold">@item</span>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
-            </div>
+            }
 
             <!-- Instructor -->
-            <div class="mb-5">
-                <h2 class="fw-bold text-uppercase border-bottom border-3 border-dark pb-2 mb-4">Your Instructor</h2>
-                <div class="d-flex gap-4 align-items-center bg-light border border-2 border-dark p-4">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" class="instructor-avatar" alt="Instructor">
-                    <div>
-                        <h4 class="fw-bold text-uppercase mb-1">Alex Morgan</h4>
-                        <p class="text-muted fw-bold small mb-2">Senior Lead Engineer</p>
-                        <p class="mb-0 small">
-                            10+ years of experience in the industry. Previously worked at Google and Microsoft. 
-                            Passionate about teaching and mentoring the next generation of developers.
-                        </p>
+            @if (Model.Course.Instructor != null)
+            {
+                <div class="mb-5">
+                    <h2 class="fw-bold text-uppercase border-bottom border-3 border-dark pb-2 mb-4">Your Instructor</h2>
+                    <div class="d-flex gap-4 align-items-center bg-light border border-2 border-dark p-4">
+                        @if (!string.IsNullOrEmpty(Model.Course.Instructor.ImageUrl))
+                        {
+                            <img src="@Model.Course.Instructor.ImageUrl" class="instructor-avatar" alt="@Model.Course.Instructor.Name">
+                        }
+                        else
+                        {
+                            <div class="instructor-avatar d-flex align-items-center justify-content-center bg-white fw-bold fs-3">
+                                @Model.Course.Instructor.Name.Substring(0, 1)
+                            </div>
+                        }
+                        <div>
+                            <h4 class="fw-bold text-uppercase mb-1">@Model.Course.Instructor.Name</h4>
+                            <p class="text-muted fw-bold small mb-2">@Model.Course.Instructor.Title</p>
+                            <p class="mb-0 small">
+                                @Model.Course.Instructor.Bio
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
 
             <!-- Admin Actions -->
             @if (User.IsInRole("Admin"))

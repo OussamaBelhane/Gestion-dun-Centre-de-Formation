@@ -1,0 +1,27 @@
+@page
+@model GestionCentreDeFormation.Pages.Admin.Instructors.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Instructor";
+    Layout = "_AdminLayout";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="admin-card border-danger">
+            <h2 class="mb-4 fw-black text-uppercase text-danger border-bottom border-2 border-danger pb-2">Delete Instructor?</h2>
+            <p class="lead fw-bold mb-4">Are you sure you want to delete this instructor? This action cannot be undone.</p>
+            
+            <div class="mb-4 p-3 bg-light border border-2 border-dark">
+                <h4 class="fw-black text-uppercase">@Model.Instructor.Name</h4>
+                <p class="mb-0 text-muted fw-bold">@Model.Instructor.Title</p>
+            </div>
+
+            <form method="post" class="d-flex justify-content-between">
+                <input type="hidden" asp-for="Instructor.Id" />
+                <a asp-page="./Index" class="btn btn-outline-dark rounded-0 fw-bold text-uppercase border-2 px-4">Cancel</a>
+                <button type="submit" class="btn btn-danger rounded-0 fw-bold text-uppercase border-2 px-4" style="background-color: #FF4400; border-color: #000; color: #fff; box-shadow: 4px 4px 0px #000;">Delete Permanently</button>
+            </form>
+        </div>
+    </div>
+</div>
