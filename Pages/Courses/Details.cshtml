@@ -7,25 +7,25 @@
     // Image Logic
     string imgUrl = !string.IsNullOrEmpty(Model.Course.ImageUrl) 
         ? Model.Course.ImageUrl 
-        : "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&q=80"; // Default fallback
+        : "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&q=90"; // Higher quality default
     
     // Only use keyword fallback if no specific image is set
     if (string.IsNullOrEmpty(Model.Course.ImageUrl))
     {
-        if (Model.Course.Title.Contains("REACT") || Model.Course.Title.Contains("JS")) imgUrl = "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80";
-        else if (Model.Course.Title.Contains("UX") || Model.Course.Title.Contains("DESIGN")) imgUrl = "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=80";
-        else if (Model.Course.Title.Contains("DEVOPS")) imgUrl = "https://images.unsplash.com/photo-1618401471353-b74a07ddcd5e?w=1200&q=80";
-        else if (Model.Course.Title.Contains("CLOUD")) imgUrl = "https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=1200&q=80";
-        else if (Model.Course.Title.Contains("DATA")) imgUrl = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80";
-        else if (Model.Course.Title.Contains("CYBER") || Model.Course.Title.Contains("SECURITY")) imgUrl = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&q=80";
-        else if (Model.Course.Title.Contains("MOBILE") || Model.Course.Title.Contains("FLUTTER")) imgUrl = "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&q=80";
+        if (Model.Course.Title.Contains("REACT") || Model.Course.Title.Contains("JS")) imgUrl = "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1600&q=90";
+        else if (Model.Course.Title.Contains("UX") || Model.Course.Title.Contains("DESIGN")) imgUrl = "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1600&q=90";
+        else if (Model.Course.Title.Contains("DEVOPS")) imgUrl = "https://images.unsplash.com/photo-1618401471353-b74a07ddcd5e?w=1600&q=90";
+        else if (Model.Course.Title.Contains("CLOUD")) imgUrl = "https://images.unsplash.com/photo-1484557985045-edf25e08da73?w=1600&q=90";
+        else if (Model.Course.Title.Contains("DATA")) imgUrl = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&q=90";
+        else if (Model.Course.Title.Contains("CYBER") || Model.Course.Title.Contains("SECURITY")) imgUrl = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=90";
+        else if (Model.Course.Title.Contains("MOBILE") || Model.Course.Title.Contains("FLUTTER")) imgUrl = "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1600&q=90";
     }
 }
 
 <style>
     .details-hero {
         position: relative;
-        height: 400px;
+        height: 500px; /* Increased height */
         border-bottom: 3px solid #000;
         overflow: hidden;
     }
@@ -33,6 +33,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        filter: brightness(0.8); /* Slightly darken image itself */
     }
     .details-hero-overlay {
         position: absolute;
@@ -40,10 +41,10 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.4);
+        background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)); /* Better gradient */
         display: flex;
         align-items: flex-end;
-        padding-bottom: 3rem;
+        padding-bottom: 4rem;
     }
     .neo-breadcrumb {
         background: #fff;

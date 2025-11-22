@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using GestionCentreDeFormation.Models
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -24,6 +28,10 @@
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a asp-page="/Index" class="nav-link px-3 link-light fw-bold text-uppercase" style="letter-spacing: 1px;">Home</a></li>
                     <li><a asp-page="/Courses/Index" class="nav-link px-3 link-light fw-bold text-uppercase" style="letter-spacing: 1px;">Courses</a></li>
+                    @if (User.Identity.IsAuthenticated && !User.IsInRole("Admin"))
+                    {
+                        <li><a asp-page="/Students/MyCourses" class="nav-link px-3 link-light fw-bold text-uppercase" style="letter-spacing: 1px; color: #FFD700 !important;">My Courses</a></li>
+                    }
                     <li><a href="#features" class="nav-link px-3 link-light fw-bold text-uppercase" style="letter-spacing: 1px;">Why Us</a></li>
                 </ul>
 

@@ -1,0 +1,147 @@
+@page
+@model GestionCentreDeFormation.Pages.Students.MyCoursesModel
+@{
+    ViewData["Title"] = "My Courses";
+}
+
+<style>
+    :root {
+        --neo-border: 2px solid #000000;
+        --neo-shadow: 5px 5px 0px #000000;
+        --neo-shadow-hover: 8px 8px 0px #000000;
+        --neo-yellow: #FFD700;
+    }
+
+    .ticket-card {
+        background: #fff;
+        border: var(--neo-border);
+        box-shadow: var(--neo-shadow);
+        transition: all 0.3s ease;
+        display: flex;
+        position: relative;
+        overflow: hidden;
+        min-height: 200px;
+    }
+
+    .ticket-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--neo-shadow-hover);
+    }
+
+    .ticket-stub {
+        width: 80px;
+        border-right: 2px dashed #000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: var(--neo-yellow);
+        font-weight: 900;
+        text-transform: uppercase;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        padding: 1rem 0;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+    }
+
+    .ticket-body {
+        flex-grow: 1;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .course-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .instructor-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .instructor-avatar {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #000;
+        border-radius: 50%;
+        margin-right: 10px;
+        object-fit: cover;
+    }
+
+    .schedule-badge {
+        background: #000;
+        color: #fff;
+        padding: 5px 10px;
+        font-weight: 700;
+        display: inline-block;
+        margin-top: auto;
+    }
+    
+    .status-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border: 2px solid #000;
+        padding: 2px 8px;
+        font-weight: 800;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+    
+    .status-active { background: #00FF41; }
+    .status-completed { background: #A0A0A0; }
+    .status-waitlist { background: #FF4500; color: white; }
+
+</style>
+
+<div class="container py-5">
+    <h1 class="display-4 fw-black text-uppercase mb-5" style="font-weight: 900;">My Schedule</h1>
+
+    @if (!Model.Enrollments.Any())
+    {
+        <div class="alert alert-warning border-2 border-dark rounded-0 fw-bold">
+            You haven't enrolled in any courses yet. <a asp-page="/Courses/Index" class="text-dark text-decoration-underline">Browse Courses</a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var enrollment in Model.Enrollments)
+            {
+                <div class="col-md-6">
+                    <div class="ticket-card">
+                        <div class="ticket-stub">ADMIT ONE</div>
+                        <div class="ticket-body">
+                            <div class="status-badge status-@enrollment.Status.ToString().ToLower()">
+                                @enrollment.Status
+                            </div>
+                            
+                            <h3 class="course-title">@enrollment.Course?.Title</h3>
+                            
+                            @if (enrollment.Course?.Instructor != null)
+                            {
+                                <div class="instructor-info">
+                                    <img src="@(enrollment.Course.Instructor.ImageUrl ?? "https://via.placeholder.com/40")" class="instructor-avatar" alt="Instructor">
+                                    <span class="fw-bold">@enrollment.Course.Instructor.Name</span>
+                                </div>
+                            }
+                            
+                            <div>
+                                <div class="schedule-badge">
+                                    <i class="bi bi-calendar-event me-2"></i>
+                                    @enrollment.Course?.StartDate.ToString("MMM dd") - @enrollment.Course?.EndDate.ToString("MMM dd, yyyy")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

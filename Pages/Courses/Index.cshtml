@@ -1,8 +1,13 @@
 @page
+@using Microsoft.AspNetCore.Identity
+@using GestionCentreDeFormation.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @model GestionCentreDeFormation.Pages.Courses.IndexModel
 
 @{
     ViewData["Title"] = "Courses";
+    var currentUser = await UserManager.GetUserAsync(User);
 }
 
 <style>
@@ -12,6 +17,9 @@
         --neo-shadow: 5px 5px 0px #000000;
         --neo-shadow-hover: 8px 8px 0px #000000;
         --neo-orange: #FF4500;
+        --neo-green: #00FF41; /* Matrix Green for enrolled */
+        --neo-red: #FF0000;   /* Urgent Red */
+        --neo-grey: #A0A0A0;
     }
 
     .filter-toolbar {
@@ -176,6 +184,66 @@
         color: #fff;
     }
 
+    /* Smart Card Buttons */
+    .btn-enroll {
+        width: 100%;
+        background: var(--neo-orange);
+        color: #fff;
+        border: none;
+        border-top: var(--neo-border);
+        padding: 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+        text-align: center;
+        display: block;
+        cursor: pointer;
+    }
+
+    .btn-enroll:hover {
+        background: #000;
+        color: #fff;
+    }
+
+    .btn-enrolled {
+        width: 100%;
+        background: var(--neo-green);
+        color: #000;
+        border: none;
+        border-top: var(--neo-border);
+        padding: 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-align: center;
+        display: block;
+        cursor: default;
+    }
+
+    .btn-full {
+        width: 100%;
+        background: var(--neo-grey);
+        color: #fff;
+        border: none;
+        border-top: var(--neo-border);
+        padding: 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        text-align: center;
+        display: block;
+        cursor: not-allowed;
+    }
+
+    .capacity-bar {
+        font-weight: 800;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    .text-urgent {
+        color: var(--neo-red);
+    }
+
     .admin-controls {
         position: absolute;
         top: 10px;
@@ -209,6 +277,19 @@
         <h1 class="display-4 fw-black text-uppercase m-0" style="font-weight: 900;">Course Catalog</h1>
     </div>
 
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success border-2 border-dark rounded-0 fw-bold" role="alert">
+            @TempData["Message"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger border-2 border-dark rounded-0 fw-bold" role="alert">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
     <!-- Filter Toolbar -->
     <div class="filter-toolbar">
         <div class="row g-3">
@@ -232,20 +313,30 @@
     <!-- Course Grid -->
     <div class="row row-cols-1 row-cols-md-3 g-4">
         @foreach (var item in Model.Course) {
+            // Logic for Smart Card
+            int seatsTaken = item.Enrollments?.Count ?? 0;
+            int seatsRemaining = item.Capacity - seatsTaken;
+            bool isFull = seatsTaken >= item.Capacity;
+            bool isEnrolled = currentUser != null && item.Enrollments != null && item.Enrollments.Any(e => e.StudentId == currentUser.Id);
+            
             <div class="col">
                 <div class="course-card">
 
                     <div class="course-img-container">
                         <div class="category-tag">TRACK</div>
                         @{
-                            string imgUrl = "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80"; // Default Code
-                            if (item.Title.Contains("REACT") || item.Title.Contains("JS")) imgUrl = "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80";
-                            else if (item.Title.Contains("UX") || item.Title.Contains("DESIGN")) imgUrl = "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80";
-                            else if (item.Title.Contains("DEVOPS")) imgUrl = "https://images.unsplash.com/photo-1618401471353-b74a07ddcd5e?w=800&q=80"; // Valid DevOps/Code image
-                            else if (item.Title.Contains("CLOUD")) imgUrl = "https://www.simplilearn.com/ice9/free_resources_article_thumb/cloudtools_b.jpg"; // Valid Data Center image
-                            else if (item.Title.Contains("DATA")) imgUrl = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80";
-                            else if (item.Title.Contains("CYBER") || item.Title.Contains("SECURITY")) imgUrl = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80";
-                            else if (item.Title.Contains("MOBILE") || item.Title.Contains("FLUTTER")) imgUrl = "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80";
+                            string imgUrl = item.ImageUrl;
+                            if (string.IsNullOrEmpty(imgUrl))
+                            {
+                                imgUrl = "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80"; // Default Code
+                                if (item.Title.Contains("REACT") || item.Title.Contains("JS")) imgUrl = "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80";
+                                else if (item.Title.Contains("UX") || item.Title.Contains("DESIGN")) imgUrl = "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80";
+                                else if (item.Title.Contains("DEVOPS")) imgUrl = "https://images.unsplash.com/photo-1618401471353-b74a07ddcd5e?w=800&q=80"; // Valid DevOps/Code image
+                                else if (item.Title.Contains("CLOUD")) imgUrl = "https://www.simplilearn.com/ice9/free_resources_article_thumb/cloudtools_b.jpg"; // Valid Data Center image
+                                else if (item.Title.Contains("DATA")) imgUrl = "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80";
+                                else if (item.Title.Contains("CYBER") || item.Title.Contains("SECURITY")) imgUrl = "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&q=80";
+                                else if (item.Title.Contains("MOBILE") || item.Title.Contains("FLUTTER")) imgUrl = "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80";
+                            }
                         }
                         <img src="@imgUrl" class="course-img" alt="@item.Title">
                     </div>
@@ -260,9 +351,33 @@
                                 <span><i class="bi bi-calendar-event me-2"></i>4 WEEKS</span>
                                 <span>DH @item.Price</span>
                             </div>
+                            <div class="capacity-bar @(seatsRemaining < 5 ? "text-urgent" : "")">
+                                Seats: @seatsTaken/@item.Capacity Taken
+                            </div>
                         </div>
                     </div>
 
+                    @if (isEnrolled)
+                    {
+                        <button class="btn-enrolled" disabled>
+                            YOU ARE ENROLLED
+                        </button>
+                    }
+                    else if (isFull)
+                    {
+                        <button class="btn-full" disabled>
+                            CLASS FULL
+                        </button>
+                    }
+                    else
+                    {
+                        <form method="post" asp-page-handler="Enroll" asp-route-courseId="@item.Id">
+                            <button type="submit" class="btn-enroll">
+                                ENROLL NOW
+                            </button>
+                        </form>
+                    }
+                    
                     <a asp-page="./Details" asp-route-id="@item.Id" class="btn-view-details">
                         View Details <i class="bi bi-arrow-right ms-2"></i>
                     </a>

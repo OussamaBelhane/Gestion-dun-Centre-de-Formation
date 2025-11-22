@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using GestionCentreDeFormation.Data;
@@ -8,10 +9,12 @@ namespace GestionCentreDeFormation.Pages.Courses;
 public class IndexModel : PageModel
 {
     private readonly ApplicationDbContext _context;
+    private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
 
-    public IndexModel(ApplicationDbContext context)
+    public IndexModel(ApplicationDbContext context, Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     public IList<Course> Course { get;set; } = default!;
@@ -20,7 +23,10 @@ public class IndexModel : PageModel
     {
         if (_context.Courses != null)
         {
-            Course = await _context.Courses.ToListAsync();
+            // Include Enrollments to calculate capacity
+            Course = await _context.Courses
+                .Include(c => c.Enrollments)
+                .ToListAsync();
         }
         
         // Seed data for demonstration if empty
@@ -102,5 +108,59 @@ public class IndexModel : PageModel
                 }
             };
         }
+    }
+
+    public async Task<IActionResult> OnPostEnrollAsync(int courseId)
+    {
+        if (!User.Identity?.IsAuthenticated ?? true)
+        {
+            return Challenge();
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+        }
+
+        var course = await _context.Courses
+            .Include(c => c.Enrollments)
+            .FirstOrDefaultAsync(m => m.Id == courseId);
+
+        if (course == null)
+        {
+            return NotFound();
+        }
+
+        // Capacity Check
+        if (course.Enrollments.Count >= course.Capacity)
+        {
+            TempData["ErrorMessage"] = "Course is full.";
+            return RedirectToPage();
+        }
+
+        // Duplication Check
+        var existingEnrollment = await _context.Enrollments
+            .FirstOrDefaultAsync(e => e.CourseId == courseId && e.StudentId == user.Id);
+
+        if (existingEnrollment != null)
+        {
+            TempData["Message"] = "You are already enrolled in this course.";
+            return RedirectToPage("./Index"); // Or redirect to MyCourses
+        }
+
+        // Create Enrollment
+        var enrollment = new Enrollment
+        {
+            CourseId = courseId,
+            StudentId = user.Id,
+            EnrollmentDate = DateTime.UtcNow,
+            Status = EnrollmentStatus.Active
+        };
+
+        _context.Enrollments.Add(enrollment);
+        await _context.SaveChangesAsync();
+
+        return RedirectToPage("/Students/MyCourses");
     }
 }
