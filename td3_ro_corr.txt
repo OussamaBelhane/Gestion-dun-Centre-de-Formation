@@ -1,0 +1,125 @@
+Année Scolaire : 2025/2026
+Élément : Recherche opérationnelle
+4ème Année-IIR
+
+TD3 : Corrigé
+Exercice 1:
+Soit le graphe G suivant :
+
+1- Donnez l’ordre du graphe.
+Ordre du graphe : n=5 sommets
+2- Ce graphe est-il connexe?
+Oui. Pour tout couple de sommets, on peut trouver un chemin (le graphe forme un seul composant).
+3- Déterminer le degré de chacun des sommets.
+Degrés : deg(A) = 4, deg(B) = 4, deg(C) = 3, deg(D) = 4, deg(E) = 3.
+4- Justifier l’existence d’une chaîne eulérienne.
+Il y a exactement deux sommets de degré impair, donc il existe une chaîne eulérienne qui
+commence en C et se termine en E (ou l’inverse).
+5- Déterminer un encadrement du nombre chromatique de ce graphe.
+L’encadrement du nombre chromatique:
+𝑎 ≤ 𝛾(𝐺) ≤ 𝑏
+L’ordre de plus grand sous graphe complet (ABED) est d’ordre 4, donc a = 4.
+Les ensembles stables :
+S1 = {E, C}, S2 = {D}, S3 = {B}, S4 = {A}
+Donc b = 4.
+a=b=4, donc 𝛾(𝐺) = 4
+
+Année Scolaire : 2025/2026
+Élément : Recherche opérationnelle
+4ème Année-IIR
+
+Exercice 2:
+Une école doit organiser les soutenances des projets de fin d’année de cinq groupes d’étudiants:
+G1, G2, G3, G4, G5.
+Les jurys des groupes sont les suivants :
+• G1 : A, B
+• G2 : A, C
+• G3 : B, D
+• G4 : C, D
+• G5 : B, C
+Proposer un planning optimal pour organiser toutes les soutenances en minimisant le temps total
+nécessaire.
+L’encadrement du nombre chromatique:
+𝑎 ≤ 𝛾(𝐺) ≤ 𝑏
+L’ordre de plus grand sous graphe complet (G1 G2 G5) est d’ordre 3, donc a = 3.
+Les ensembles stables :
+S1 = {G4, G1}, S2 = {G2, G3}, S3 = {G5}
+Donc b = 3.
+a=b=3, donc 𝛾(𝐺) = 3
+planning optimal (3 créneaux):
+•
+•
+•
+
+Créneau 1 : G1 et G4
+Créneau 2 : G2 et G3
+Créneau 3 : G5
+
+Année Scolaire : 2025/2026
+Élément : Recherche opérationnelle
+4ème Année-IIR
+
+Exercice 3:
+Une entreprise de livraison souhaite acheminer un colis depuis l’entrepôt E jusqu’au client situé
+en ville V. Le réseau routier entre E et V est représenté par le graphe ci-dessous, où chaque
+noeud représente une intersection majeure, et chaque arête représente une route directe entre
+deux intersections avec le temps de trajet (en minutes) indiqué.
+
+L’entreprise souhaite minimiser le temps de livraison du colis de E à V. Quel est le temps
+minimal nécessaire pour acheminer le colis au client, et par quelles intersections doit-il passer ?
+
+d(E) d(A)
+Init 0
+∞
+1
+10 ; E
+2
+10 ; E
+3
+10 ; E
+4
+10 ; E
+5
+10 ; E
+6
+
+d(B)
+∞
+5;E
+5;E
+
+d(C)
+∞
+∞
+∞
+7; B
+
+d(D) d(F) d(V)
+∞
+∞
+∞
+∞
+5;E ∞
+∞
+12 ; F
+12 ; B
+12 ; F
+8;C
+12 ; F
+11 ; D
+11 ; D
+
+Le plus court chemin entre E et V:
+E→B→C→D→V
+Distance minimale : 11
+
+Sommets
+E
+F
+B
+C
+D
+A
+V
+
+

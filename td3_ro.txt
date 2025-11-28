@@ -1,0 +1,40 @@
+Année Scolaire : 2025/2026
+Élément : Recherche opérationnelle
+4ème Année-IIR
+
+TD3
+Exercice 1:
+Soit le graphe G suivant :
+
+1- Donnez l’ordre du graphe.
+2- Ce graphe est-il connexe?
+3- Déterminer le degré de chacun des sommets.
+4- Justifier l’existence d’une chaîne eulérienne.
+5- Déterminer un encadrement du nombre chromatique de ce graphe.
+
+Exercice 2:
+Une école doit organiser les soutenances des projets de fin d’année de cinq groupes d’étudiants:
+G1, G2, G3, G4, G5.
+Les jurys des groupes sont les suivants :
+• G1 : A, B
+• G2 : A, C
+• G3 : B, D
+• G4 : C, D
+• G5 : B, C
+Proposer un planning optimal pour organiser toutes les soutenances en minimisant le temps total
+nécessaire.
+
+Année Scolaire : 2025/2026
+Élément : Recherche opérationnelle
+4ème Année-IIR
+
+Exercice 3:
+Une entreprise de livraison souhaite acheminer un colis depuis l’entrepôt E jusqu’au client situé
+en ville V. Le réseau routier entre E et V est représenté par le graphe ci-dessous, où chaque
+noeud représente une intersection majeure, et chaque arête représente une route directe entre
+deux intersections avec le temps de trajet (en minutes) indiqué.
+
+L’entreprise souhaite minimiser le temps de livraison du colis de E à V. Quel est le temps
+minimal nécessaire pour acheminer le colis au client, et par quelles intersections doit-il passer ?
+
+

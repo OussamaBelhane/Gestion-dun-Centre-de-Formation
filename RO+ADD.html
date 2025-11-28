@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD Mathématiques - ACP & RO</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Computer+Modern+Serif:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #1a237e;
+            /* Deep Blue */
+            --secondary-color: #303f9f;
+            --accent-color: #c2185b;
+            /* Pink/Red for highlights */
+            --text-color: #212121;
+            --bg-color: #f5f5f5;
+            --paper-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Math Font for specific elements */
+        .math-text {
+            font-family: 'Computer Modern Serif', serif;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Navigation / Tabs */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            background-color: var(--paper-bg);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: #757575;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab:hover {
+            background-color: #f0f0f0;
+            color: var(--primary-color);
+        }
+
+        .nav-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .td-content {
+            display: none;
+            background-color: var(--paper-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .td-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typography */
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+        }
+
+        .question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #fafafa;
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Correction & Explanation */
+        .correction-toggle {
+            background-color: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .correction-toggle:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .correction-content {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #e8eaf6;
+            /* Light Indigo */
+            border-radius: 4px;
+            border: 1px solid #c5cae9;
+        }
+
+        .explanation {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #9fa8da;
+            font-size: 0.95rem;
+            color: #424242;
+        }
+
+        .explanation strong {
+            color: var(--accent-color);
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        /* Data Info / Summary Section */
+        .data-info-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 3rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+
+        .data-info-btn:hover {
+            background-color: #ad1457;
+        }
+
+        .data-info-panel {
+            display: none;
+            margin-top: 1rem;
+            padding: 2rem;
+            background-color: white;
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            margin: auto;
+        }
+
+        #mynetwork,
+        #mynetwork-ex3 {
+            width: 100%;
+            height: 400px;
+            border: 1px solid lightgray;
+            background-color: #fcfcfc;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #757575;
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Travaux Dirigés : Analyse de Données & Recherche Opérationnelle</h1>
+    </header>
+
+    <nav class="nav-tabs">
+        <div class="nav-tab active" onclick="switchTab('td2')">TD2 - ACP</div>
+        <div class="nav-tab" onclick="switchTab('td3')">TD3 - RO</div>
+    </nav>
+
+    <div class="container">
+        <!-- TD2 Content -->
+        <div id="td2" class="td-content active">
+            <h2>TD2 : Analyse en Composantes Principales (ACP)</h2>
+            <p><strong>Sujet :</strong> Efficacité énergétique des véhicules électriques.</p>
+            <p>On étudie 6 véhicules électriques décrits par 5 variables : Autonomie (km), Temps de charge (h), Poids
+                (kg), Puissance (kW), Prix (kDH).</p>
+
+            <!-- Data Table -->
+            <div id="td2-data-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Véhicule</th>
+                            <th>Autonomie (km)</th>
+                            <th>T. charge (h)</th>
+                            <th>Poids (kg)</th>
+                            <th>Puissance (kW)</th>
+                            <th>Prix (kDH)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>V1</td>
+                            <td>496</td>
+                            <td>4.29</td>
+                            <td>1610</td>
+                            <td>171</td>
+                            <td>469</td>
+                        </tr>
+                        <tr>
+                            <td>V2</td>
+                            <td>419</td>
+                            <td>5.77</td>
+                            <td>1669</td>
+                            <td>143</td>
+                            <td>424</td>
+                        </tr>
+                        <tr>
+                            <td>V3</td>
+                            <td>451</td>
+                            <td>5.01</td>
+                            <td>1640</td>
+                            <td>155</td>
+                            <td>448</td>
+                        </tr>
+                        <tr>
+                            <td>V4</td>
+                            <td>508</td>
+                            <td>5.91</td>
+                            <td>1719</td>
+                            <td>173</td>
+                            <td>488</td>
+                        </tr>
+                        <tr>
+                            <td>V5</td>
+                            <td>481</td>
+                            <td>5.09</td>
+                            <td>1672</td>
+                            <td>171</td>
+                            <td>481</td>
+                        </tr>
+                        <tr>
+                            <td>V6</td>
+                            <td>354</td>
+                            <td>6.80</td>
+                            <td>1655</td>
+                            <td>128</td>
+                            <td>395</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Questions -->
+            <div id="td2-questions">
+
+                <div class="question">
+                    <div class="question-text">1. Compléter le tableau centré-réduit.</div>
+                    <p>Certaines valeurs sont manquantes (indiquées par "..."). Calculez-les pour compléter le tableau.
+                    </p>
+
+                    <!-- Incomplete Table -->
+                    <div class="incomplete-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Véhicule</th>
+                                    <th>Autonomie</th>
+                                    <th>T. charge</th>
+                                    <th>Poids</th>
+                                    <th>Puissance</th>
+                                    <th>Prix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>V1</td>
+                                    <td>0.846</td>
+                                    <td><span style="color:red; font-weight:bold;">...</span></td>
+                                    <td>-1.530</td>
+                                    <td>0.844</td>
+                                    <td>0.553</td>
+                                </tr>
+                                <tr>
+                                    <td>V2</td>
+                                    <td>-0.618</td>
+                                    <td>0.366</td>
+                                    <td><span style="color:red; font-weight:bold;">...</span></td>
+                                    <td>-0.825</td>
+                                    <td>-0.817</td>
+                                </tr>
+                                <tr>
+                                    <td>V3</td>
+                                    <td>-0.010</td>
+                                    <td>-0.588</td>
+                                    <td>-0.627</td>
+                                    <td>-0.109</td>
+                                    <td>-0.086</td>
+                                </tr>
+                                <tr>
+                                    <td>V4</td>
+                                    <td><span style="color:red; font-weight:bold;">...</span></td>
+                                    <td>0.542</td>
+                                    <td>1.750</td>
+                                    <td>0.964</td>
+                                    <td>1.132</td>
+                                </tr>
+                                <tr>
+                                    <td>V5</td>
+                                    <td>0.561</td>
+                                    <td>-0.488</td>
+                                    <td>0.336</td>
+                                    <td>0.844</td>
+                                    <td>0.919</td>
+                                </tr>
+                                <tr>
+                                    <td>V6</td>
+                                    <td>-1.853</td>
+                                    <td>1.661</td>
+                                    <td>-0.176</td>
+                                    <td>-1.719</td>
+                                    <td>-1.701</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q1')">Voir Correction &
+                        Calculs Détaillés</button>
+                    <div id="corr-td2-q1" class="correction-content">
+                        <h4>Tableau Complété</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Véhicule</th>
+                                    <th>Autonomie</th>
+                                    <th>T. charge</th>
+                                    <th>Poids</th>
+                                    <th>Puissance</th>
+                                    <th>Prix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>V1</td>
+                                    <td>0.846</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">-1.493
+                                    </td>
+                                    <td>-1.530</td>
+                                    <td>0.844</td>
+                                    <td>0.553</td>
+                                </tr>
+                                <tr>
+                                    <td>V2</td>
+                                    <td>-0.618</td>
+                                    <td>0.366</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">0.246
+                                    </td>
+                                    <td>-0.825</td>
+                                    <td>-0.817</td>
+                                </tr>
+                                <tr>
+                                    <td>V3</td>
+                                    <td>-0.010</td>
+                                    <td>-0.588</td>
+                                    <td>-0.627</td>
+                                    <td>-0.109</td>
+                                    <td>-0.086</td>
+                                </tr>
+                                <tr>
+                                    <td>V4</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">1.074
+                                    </td>
+                                    <td>0.542</td>
+                                    <td>1.750</td>
+                                    <td>0.964</td>
+                                    <td>1.132</td>
+                                </tr>
+                                <tr>
+                                    <td>V5</td>
+                                    <td>0.561</td>
+                                    <td>-0.488</td>
+                                    <td>0.336</td>
+                                    <td>0.844</td>
+                                    <td>0.919</td>
+                                </tr>
+                                <tr>
+                                    <td>V6</td>
+                                    <td>-1.853</td>
+                                    <td>1.661</td>
+                                    <td>-0.176</td>
+                                    <td>-1.719</td>
+                                    <td>-1.701</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="explanation">
+                            <h4>Détails des Calculs (Comme sur l'image)</h4>
+                            <p>Pour chaque variable, nous calculons d'abord la Variance, puis l'Écart-type
+                                (\(\sigma\)), et enfin la valeur centrée-réduite (\(Z\)).</p>
+
+                            <div
+                                style="background-color: #fff; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px;">
+                                <p><strong>Rappel des Formules :</strong></p>
+                                <p class="math-text">\[ Var(X) = \frac{1}{n} \sum_{i=1}^{n} x_i^2 - (\bar{x})^2 \]</p>
+                                <p class="math-text">\[ \sigma = \sqrt{Var(X)} \]</p>
+                                <p class="math-text">\[ Z_i = \frac{x_i - \bar{x}}{\sigma} \]</p>
+                            </div>
+
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1rem 0;">
+
+                            <h5>1. Variable Autonomie (Calcul de la valeur manquante pour V4)</h5>
+                            <p><strong>Étape A : Variance et Écart-type</strong></p>
+                            <p class="math-text">
+                                \[ Var(Autonomie) = \frac{1}{6} (496^2 + 419^2 + 451^2 + 508^2 + 481^2 + 354^2) -
+                                451.5^2 \]
+                                \[ Var(Autonomie) = \frac{1}{6} (1239719) - 203852.25 = 206619.83 - 203852.25 =
+                                \mathbf{2767.58} \]
+                                \[ \sigma = \sqrt{2767.58} \approx \mathbf{52.60} \]
+                            </p>
+                            <p><strong>Étape B : Calcul du Z-score pour V4 (\(x_4 = 508\))</strong></p>
+                            <p class="math-text">
+                                \[ Z_4 = \frac{508 - 451.5}{52.60} = \frac{56.5}{52.60} \approx \mathbf{1.074} \]
+                            </p>
+
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1rem 0;">
+
+                            <h5>2. Variable Temps de charge (Calcul pour V1)</h5>
+                            <p><strong>Étape A : Variance et Écart-type</strong></p>
+                            <p>Moyenne \(\bar{x} = 5.478\)</p>
+                            <p class="math-text">
+                                \[ Var(T.charge) = \frac{1}{6} \sum x_i^2 - (5.478)^2 \approx 0.6335 \]
+                                \[ \sigma = \sqrt{0.6335} \approx \mathbf{0.796} \]
+                            </p>
+                            <p><strong>Étape B : Calcul du Z-score pour V1 (\(x_1 = 4.29\))</strong></p>
+                            <p class="math-text">
+                                \[ Z_1 = \frac{4.29 - 5.478}{0.796} = \frac{-1.188}{0.796} \approx \mathbf{-1.493} \]
+                            </p>
+
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1rem 0;">
+
+                            <h5>3. Variable Poids (Calcul pour V2)</h5>
+                            <p><strong>Étape A : Variance et Écart-type</strong></p>
+                            <p>Moyenne \(\bar{x} = 1660.83\)</p>
+                            <p class="math-text">
+                                \[ \sigma \approx \mathbf{33.23} \]
+                            </p>
+                            <p><strong>Étape B : Calcul du Z-score pour V2 (\(x_2 = 1669\))</strong></p>
+                            <p class="math-text">
+                                \[ Z_2 = \frac{1669 - 1660.83}{33.23} = \frac{8.17}{33.23} \approx \mathbf{0.246} \]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. Compléter la matrice de corrélation.</div>
+                    <p>Calculez les coefficients de corrélation manquants.</p>
+
+                    <div class="incomplete-table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Autonomie</th>
+                                    <th>T. charge</th>
+                                    <th>Poids</th>
+                                    <th>Puissance</th>
+                                    <th>Prix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Autonomie</b></td>
+                                    <td>1.000</td>
+                                    <td><span style="color:red; font-weight:bold;">...</span></td>
+                                    <td>0.159</td>
+                                    <td>0.987</td>
+                                    <td>0.976</td>
+                                </tr>
+                                <tr>
+                                    <td><b>T. charge</b></td>
+                                    <td><span style="color:red; font-weight:bold;">...</span></td>
+                                    <td>1.000</td>
+                                    <td>0.539</td>
+                                    <td>-0.707</td>
+                                    <td>-0.622</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Poids</b></td>
+                                    <td>0.159</td>
+                                    <td>0.539</td>
+                                    <td>1.000</td>
+                                    <td><span style="color:red; font-weight:bold;">...</span></td>
+                                    <td>0.266</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Puissance</b></td>
+                                    <td>0.987</td>
+                                    <td>-0.707</td>
+                                    <td><span style="color:red; font-weight:bold;">...</span></td>
+                                    <td>1.000</td>
+                                    <td>0.990</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Prix</b></td>
+                                    <td>0.976</td>
+                                    <td>-0.622</td>
+                                    <td>0.266</td>
+                                    <td>0.990</td>
+                                    <td>1.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q2')">Voir Correction &
+                        Calculs Détaillés</button>
+                    <div id="corr-td2-q2" class="correction-content">
+                        <h4>Matrice de Corrélation Complète</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Autonomie</th>
+                                    <th>T. charge</th>
+                                    <th>Poids</th>
+                                    <th>Puissance</th>
+                                    <th>Prix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Autonomie</b></td>
+                                    <td>1.000</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">-0.709
+                                    </td>
+                                    <td>0.159</td>
+                                    <td>0.987</td>
+                                    <td>0.976</td>
+                                </tr>
+                                <tr>
+                                    <td><b>T. charge</b></td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">-0.709
+                                    </td>
+                                    <td>1.000</td>
+                                    <td>0.539</td>
+                                    <td>-0.707</td>
+                                    <td>-0.622</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Poids</b></td>
+                                    <td>0.159</td>
+                                    <td>0.539</td>
+                                    <td>1.000</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">0.141</td>
+                                    <td>0.266</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Puissance</b></td>
+                                    <td>0.987</td>
+                                    <td>-0.707</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">0.141</td>
+                                    <td>1.000</td>
+                                    <td>0.990</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Prix</b></td>
+                                    <td>0.976</td>
+                                    <td>-0.622</td>
+                                    <td>0.266</td>
+                                    <td>0.990</td>
+                                    <td>1.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="explanation">
+                            <h4>Détails des Calculs</h4>
+                            <p>Le coefficient de corrélation linéaire \( r_{xy} \) entre deux variables
+                                centrées-réduites \( X \) et \( Y \) se calcule par :</p>
+                            <p class="math-text" style="font-size: 1.2rem; text-align: center;">
+                                \[ r_{xy} = \frac{1}{n} \sum_{i=1}^{n} x_i y_i \]
+                            </p>
+                            <p>C'est la moyenne du produit des valeurs centrées-réduites.</p>
+
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1rem 0;">
+
+                            <h5>Exemple 1 : Corrélation Autonomie - Temps de charge</h5>
+                            <p>On utilise les colonnes \( Z_{Autonomie} \) et \( Z_{T.charge} \).</p>
+                            <p class="math-text">
+                                \[ r = \frac{1}{6} [ (0.846 \times -1.493) + (-0.618 \times 0.366) + (-0.010 \times
+                                -0.588) + (1.074 \times 0.542) + (0.561 \times -0.488) + (-1.853 \times 1.661) ] \]
+                            </p>
+                            <p class="math-text">
+                                \[ r = \frac{1}{6} [ -4.253 ] \approx \mathbf{-0.709} \]
+                            </p>
+
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1rem 0;">
+
+                            <h5>Exemple 2 : Corrélation Poids - Puissance</h5>
+                            <p>On utilise les colonnes \( Z_{Poids} \) et \( Z_{Puissance} \).</p>
+                            <p class="math-text">
+                                \[ r = \frac{1}{6} [ (-1.530 \times 0.844) + (0.246 \times -0.825) + (-0.627 \times
+                                -0.109) + (1.750 \times 0.964) + (0.336 \times 0.844) + (-0.176 \times -1.719) ] \]
+                            </p>
+                            <p class="math-text">
+                                \[ r = \frac{1}{6} [ -1.291 - 0.203 + 0.068 + 1.687 + 0.283 + 0.302 ] \]
+                                \[ r = \frac{1}{6} [ 0.846 ] \approx \mathbf{0.141} \]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. Identifier les couples de variables les plus corrélés et commenter.
+                    </div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q3')">Voir Correction</button>
+                    <div id="corr-td2-q3" class="correction-content">
+                        <p><b>Corrélations positives très fortes :</b></p>
+                        <ul>
+                            <li>Puissance – Prix : 0.990</li>
+                            <li>Autonomie – Puissance : 0.987</li>
+                            <li>Autonomie – Prix : 0.976</li>
+                        </ul>
+                        <p><b>Corrélations négatives :</b></p>
+                        <ul>
+                            <li>Autonomie – Temps de charge : -0.709</li>
+                            <li>Puissance – Temps de charge : -0.707</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. Interpréter la présence de corrélations négatives.</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q4')">Voir Correction</button>
+                    <div id="corr-td2-q4" class="correction-content">
+                        <p>Les véhicules performants (autonomie et puissance élevées) ont tendance à avoir un temps de
+                            charge plus faible (probablement dû à des technologies de batterie plus avancées sur les
+                            modèles haut de gamme).</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. Que représentent les valeurs propres associées aux axes principaux ?
+                    </div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q5')">Voir Correction</button>
+                    <div id="corr-td2-q5" class="correction-content">
+                        <p>Elles représentent la part de variance (inertie) expliquée par chaque axe principal. </p>
+                        <p>Values: \( \lambda_1 = 3.521, \lambda_2 = 1.417, \lambda_3 = 0.044, \lambda_4 = 0.017,
+                            \lambda_5 = 0.001 \)</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">Vecteurs propres normalisés</div>
+                    <div style="overflow-x: auto;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>U1</th>
+                                    <th>U2</th>
+                                    <th>U3</th>
+                                    <th>U4</th>
+                                    <th>U5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Autonomie</b></td>
+                                    <td>0.527</td>
+                                    <td>0.091</td>
+                                    <td>-0.076</td>
+                                    <td>0.817</td>
+                                    <td>-0.203</td>
+                                </tr>
+                                <tr>
+                                    <td><b>T_charge</b></td>
+                                    <td>-0.418</td>
+                                    <td>0.505</td>
+                                    <td>0.705</td>
+                                    <td>0.257</td>
+                                    <td>-0.087</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Poids</b></td>
+                                    <td>0.028</td>
+                                    <td>0.834</td>
+                                    <td>-0.519</td>
+                                    <td>-0.123</td>
+                                    <td>0.141</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Puissance</b></td>
+                                    <td>0.528</td>
+                                    <td>0.083</td>
+                                    <td>0.393</td>
+                                    <td>-0.130</td>
+                                    <td>0.737</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Prix</b></td>
+                                    <td>0.518</td>
+                                    <td>0.186</td>
+                                    <td>0.273</td>
+                                    <td>-0.484</td>
+                                    <td>-0.623</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">6. À quoi correspond la somme des valeurs propres ?</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q6')">Voir Correction</button>
+                    <div id="corr-td2-q6" class="correction-content">
+                        <p>\( \sum \lambda_j = 5 \). Cela correspond à l'inertie totale du nuage (car nous avons 5
+                            variables centrées-réduites).</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">7. On choisit de n’étudier que les deux premières composantes
+                        principales. Justifier ce choix.</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q7')">Voir Correction</button>
+                    <div id="corr-td2-q7" class="correction-content">
+                        <p>Selon la règle de Kaiser (on ne garde que les axes où \( \lambda_j > 1 \)), on conserve
+                            uniquement les axes F1 et F2.</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">8. Quelle part d’inertie totale sera alors représentée ?</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q8')">Voir Correction</button>
+                    <div id="corr-td2-q8" class="correction-content">
+                        <p>Inertie expliquée = \( \frac{3.521 + 1.417}{5} \times 100 = \frac{4.938}{5} \times 100 =
+                            98.76\% \).</p>
+                        <p>Deux axes suffisent pour représenter presque toute l'information.</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">9. Calculer les valeurs des composantes principales manquantes.</div>
+                    <p>Calculez les coordonnées manquantes des individus sur les axes F1 et F2.</p>
+
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q9')">Voir Correction &
+                        Calculs Détaillés</button>
+                    <div id="corr-td2-q9" class="correction-content">
+                        <h4>Tableau des Composantes Principales</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Véhicule</th>
+                                    <th>Composante 1 (F1)</th>
+                                    <th>Composante 2 (F2)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>V1</td>
+                                    <td>1.759</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">-1.780
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>V2</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">-1.331
+                                    </td>
+                                    <td>0.113</td>
+                                </tr>
+                                <tr>
+                                    <td>V3</td>
+                                    <td>0.121</td>
+                                    <td style="color: #c2185b; font-weight: bold; background-color: #fce4ec;">-0.846
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>V4</td>
+                                    <td>1.484</td>
+                                    <td>2.122</td>
+                                </tr>
+                                <tr>
+                                    <td>V5</td>
+                                    <td>1.431</td>
+                                    <td>0.326</td>
+                                </tr>
+                                <tr>
+                                    <td>V6</td>
+                                    <td>-3.465</td>
+                                    <td>0.064</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="explanation">
+                            <h4>Détails des Calculs (Exemples pour les valeurs manquantes)</h4>
+                            <p>Les composantes principales se calculent à l’aide de la formule matricielle :</p>
+                            <p class="math-text" style="font-size: 1.2rem; text-align: center;">
+                                \[ C_{i\alpha} = \sum_{j=1}^{p} z_{ij} \cdot u_{j\alpha} \]
+                            </p>
+                            <p>Où \( z_{ij} \) sont les valeurs centrées-réduites (Q1) et \( u_{j\alpha} \) sont les
+                                vecteurs propres (Q6).</p>
+
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1rem 0;">
+
+                            <h5>1. Calcul de F2 pour V1 (Valeur manquante : -1.780)</h5>
+                            <p>On utilise la ligne \( Z_1 \) et le vecteur \( U_2 \).</p>
+                            <p class="math-text">
+                                \[ F2(V1) = (0.846 \times 0.091) + (-1.493 \times 0.505) + (-1.530 \times 0.834) +
+                                (0.844 \times 0.083) + (0.553 \times 0.186) \]
+                            </p>
+                            <p class="math-text">
+                                \[ F2(V1) = 0.077 - 0.754 - 1.276 + 0.070 + 0.103 \approx \mathbf{-1.780} \]
+                            </p>
+
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1rem 0;">
+
+                            <h5>2. Calcul de F1 pour V2 (Valeur manquante : -1.331)</h5>
+                            <p>On utilise la ligne \( Z_2 \) et le vecteur \( U_1 \).</p>
+                            <p class="math-text">
+                                \[ F1(V2) = (-0.618 \times 0.527) + (0.366 \times -0.418) + (0.246 \times 0.028) +
+                                (-0.825 \times 0.528) + (-0.817 \times 0.518) \]
+                            </p>
+                            <p class="math-text">
+                                \[ F1(V2) = -0.326 - 0.153 + 0.007 - 0.436 - 0.423 \approx \mathbf{-1.331} \]
+                            </p>
+
+                            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 1rem 0;">
+
+                            <h5>3. Calcul de F2 pour V3 (Valeur manquante : -0.846)</h5>
+                            <p>On utilise la ligne \( Z_3 \) et le vecteur \( U_2 \).</p>
+                            <p class="math-text">
+                                \[ F2(V3) = (-0.010 \times 0.091) + (-0.588 \times 0.505) + (-0.627 \times 0.834) +
+                                (-0.109 \times 0.083) + (-0.086 \times 0.186) \]
+                            </p>
+                            <p class="math-text">
+                                \[ F2(V3) = -0.001 - 0.297 - 0.523 - 0.009 - 0.016 \approx \mathbf{-0.846} \]
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">10. Représenter les véhicules sur les axes principaux, F1 et F2.</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q10')">Voir
+                        Correction</button>
+                    <div id="corr-td2-q10" class="correction-content">
+                        <p>Voir le graphique interactif ci-dessous (cliquez sur "Voir Résumé Graphique").</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">11. Interprétation : Quels véhicules se ressemblent le plus ? Lesquels se
+                        distinguent nettement ?</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td2-q11')">Voir
+                        Correction</button>
+                    <div id="corr-td2-q11" class="correction-content">
+                        <p>Les véhicules qui se ressemblent le plus par rapport le premier axe : V4 et V5 (car leurs
+                            coordonnées sur F1 sont très proches : 1.484 et 1.431).</p>
+                        <p>Les véhicules les plus différents : V4 et V6.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="data-info-btn" onclick="toggleDataInfo('td2-info')">Voir Résumé Graphique (ACP)</button>
+            <div id="td2-info" class="data-info-panel">
+                <h3>Projection des individus (Plan F1 - F2)</h3>
+                <div class="chart-container">
+                    <canvas id="acpChart"></canvas>
+                </div>
+                <p class="explanation" style="text-align: center;">
+                    Ce graphique représente la projection des 6 véhicules sur les deux premiers axes factoriels.
+                    <br><strong>F1 (Axe horizontal)</strong> : Représente principalement la "Performance"
+                    (Autonomie,
+                    Puissance, Prix).
+                    <br><strong>F2 (Axe vertical)</strong> : Représente principalement le "Poids".
+                </p>
+            </div>
+        </div>
+
+        <!-- TD3 Content -->
+        <div id="td3" class="td-content">
+            <h2>TD3 : Recherche Opérationnelle (RO)</h2>
+
+            <!-- Exercise 1 -->
+            <h3>Exercice 1 : Théorie des Graphes</h3>
+            <div id="td3-ex1-questions">
+                <p>Soit le graphe G (visualisé ci-dessous).</p>
+
+                <div id="td3-ex1-graph-panel" class="data-info-panel"
+                    style="display:block; border: 1px solid #ddd; margin-bottom: 2rem;">
+                    <div id="mynetwork"></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">1. Donnez l’ordre du graphe.</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td3-ex1-q1')">Voir
+                        Correction</button>
+                    <div id="corr-td3-ex1-q1" class="correction-content">
+                        <p>Ordre du graphe : \( n = 5 \) sommets (A, B, C, D, E).</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">2. Ce graphe est-il connexe ?</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td3-ex1-q2')">Voir
+                        Correction</button>
+                    <div id="corr-td3-ex1-q2" class="correction-content">
+                        <p>Oui. Pour tout couple de sommets, on peut trouver un chemin (le graphe forme une seule
+                            composante connexe).</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">3. Déterminer le degré de chacun des sommets.</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td3-ex1-q3')">Voir
+                        Correction</button>
+                    <div id="corr-td3-ex1-q3" class="correction-content">
+                        <p>Degrés : \( deg(A) = 4, deg(B) = 4, deg(C) = 3, deg(D) = 4, deg(E) = 3 \).</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">4. Justifier l’existence d’une chaîne eulérienne.</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td3-ex1-q4')">Voir
+                        Correction</button>
+                    <div id="corr-td3-ex1-q4" class="correction-content">
+                        <p>Il y a exactement deux sommets de degré impair (C et E), donc il existe une chaîne eulérienne
+                            qui commence en C et se termine en E (ou l'inverse).</p>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">5. Déterminer un encadrement du nombre chromatique de ce graphe.</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td3-ex1-q5')">Voir
+                        Correction</button>
+                    <div id="corr-td3-ex1-q5" class="correction-content">
+                        <p><b>L’encadrement du nombre chromatique :</b></p>
+                        <p class="math-text" style="text-align: center;">\[ a \leq \gamma(G) \leq b \]</p>
+
+                        <p><b>Borne inférieure (a) :</b></p>
+                        <p>L'ordre du plus grand sous-graphe complet (clique) est 4 (ABED), donc \( a = 4 \).</p>
+
+                        <p><b>Borne supérieure (b) - Les ensembles stables :</b></p>
+                        <p>\( S_1 = \{E, C\} \) (E et C ne sont pas reliés)</p>
+                        <p>\( S_2 = \{D\} \)</p>
+                        <p>\( S_3 = \{B\} \)</p>
+                        <p>\( S_4 = \{A\} \)</p>
+                        <p>On a trouvé 4 ensembles stables qui couvrent tout le graphe, donc \( b = 4 \).</p>
+
+                        <p><b>Conclusion :</b></p>
+                        <p>Comme \( a = b = 4 \), alors \( \gamma(G) = 4 \).</p>
+
+                        <div id="td3-ex1-colored-graph-panel" class="data-info-panel"
+                            style="display:block; border: 1px solid #ddd; margin: 1rem 0;">
+                            <div id="mynetwork-ex1-colored" style="height: 300px;"></div>
+                            <p style="text-align: center; font-size: 0.9rem; color: #666;">Visualisation de la
+                                coloration (4 couleurs)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 2 -->
+            <h3>Exercice 2 : Coloration de Graphe (Planning)</h3>
+            <div id="td3-ex2-questions">
+                <p>Une école doit organiser les soutenances de 5 groupes (G1 à G5). Jurys :</p>
+                <ul>
+                    <li>G1 : A, B</li>
+                    <li>G2 : A, C</li>
+                    <li>G3 : B, D</li>
+                    <li>G4 : C, D</li>
+                    <li>G5 : B, C</li>
+                </ul>
+                <p>Proposer un planning optimal (minimiser le temps).</p>
+
+                <div class="question">
+                    <div class="question-text">Planning Optimal</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td3-ex2')">Voir
+                        Correction</button>
+                    <div id="corr-td3-ex2" class="correction-content">
+                        <p>On construit le graphe des incompatibilités (deux groupes sont reliés s'ils ont un membre du
+                            jury en commun).</p>
+
+                        <div id="td3-ex2-graph-panel" class="data-info-panel"
+                            style="display:block; border: 1px solid #ddd; margin: 1rem 0;">
+                            <div id="mynetwork-ex2" style="height: 300px;"></div>
+                        </div>
+
+                        <h4>Explication du Nombre Chromatique \( \gamma(G) = 3 \)</h4>
+                        <p>Pour déterminer le nombre minimum de créneaux (couleurs), analysons les conflits :</p>
+                        <ul>
+                            <li><b>Le sommet G5</b> est relié à TOUS les autres sommets (G1, G2, G3, G4). Il a un degré
+                                de 4. Il doit donc avoir une couleur unique, différente de tous les autres.</li>
+                            <li><b>G1 et G4</b> ne sont pas reliés. Ils
+                                peuvent partager le Créneau 1.</li>
+                            <li><b>G2 et G3</b> ne sont pas reliés. Ils
+                                peuvent partager le Créneau 2.</li>
+                        </ul>
+                        <p>Il nous faut donc 3 créneaux au minimum.</p>
+
+                        <h4>Planning Optimal</h4>
+                        <ul>
+                            <li><b>Créneau 1 :</b> G1 et G4 (Jurys A,B et C,D - Pas de conflit)</li>
+                            <li><b>Créneau 2 :</b> G2 et G3 (Jurys A,C et B,D - Pas de conflit)</li>
+                            <li><b>Créneau 3 :</b> G5 (Jurys B,C)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Exercise 3 -->
+            <h3>Exercice 3 : Plus Court Chemin (Dijkstra)</h3>
+            <div id="td3-ex3-questions">
+                <p>Minimiser le temps de livraison de l'entrepôt E au client V.</p>
+
+                <div id="td3-ex3-graph-panel" class="data-info-panel"
+                    style="display:block; border: 1px solid #ddd; margin-bottom: 2rem;">
+                    <div id="mynetwork-ex3" style="height: 300px;"></div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">Quel est le temps minimal et le chemin ?</div>
+                    <button class="correction-toggle" onclick="toggleCorrection('corr-td3-ex3')">Voir Correction &
+                        Détails</button>
+                    <div id="corr-td3-ex3" class="correction-content">
+
+                        <h4>Détails de l'Algorithme de Dijkstra</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Étape</th>
+                                    <th>d(E)</th>
+                                    <th>d(A)</th>
+                                    <th>d(B)</th>
+                                    <th>d(C)</th>
+                                    <th>d(D)</th>
+                                    <th>d(F)</th>
+                                    <th>d(V)</th>
+                                    <th>Sommet Choisi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Init</td>
+                                    <td>0</td>
+                                    <td>∞</td>
+                                    <td>∞</td>
+                                    <td>∞</td>
+                                    <td>∞</td>
+                                    <td>∞</td>
+                                    <td>∞</td>
+                                    <td>E</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>-</td>
+                                    <td>10 (E)</td>
+                                    <td>5 (E)</td>
+                                    <td>∞</td>
+                                    <td>∞</td>
+                                    <td>5 (E)</td>
+                                    <td>∞</td>
+                                    <td>F (ou B)</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>-</td>
+                                    <td>10 (E)</td>
+                                    <td>5 (E)</td>
+                                    <td>∞</td>
+                                    <td>∞</td>
+                                    <td>-</td>
+                                    <td>12 (F)</td>
+                                    <td>B</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>-</td>
+                                    <td>10 (E)</td>
+                                    <td>-</td>
+                                    <td>7 (B)</td>
+                                    <td>12 (B)</td>
+                                    <td>-</td>
+                                    <td>12 (F)</td>
+                                    <td>C</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>-</td>
+                                    <td>10 (E)</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>8 (C)</td>
+                                    <td>-</td>
+                                    <td>12 (F)</td>
+                                    <td>D</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>-</td>
+                                    <td>10 (E)</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>11 (D)</td>
+                                    <td>A</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>11 (D)</td>
+                                    <td>V</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <p><b>Résultat Final :</b></p>
+                        <p>Le temps minimal pour aller de E à V est de <b>11 minutes</b>.</p>
+                        <p><b>Le chemin optimal est :</b> E \(\rightarrow\) B \(\rightarrow\) C \(\rightarrow\) D
+                            \(\rightarrow\) V.</p>
+                        <p><b>Détail du calcul :</b></p>
+                        <ul>
+                            <li>E \(\rightarrow\) B : 5 min</li>
+                            <li>B \(\rightarrow\) C : 2 min (Total : 7)</li>
+                            <li>C \(\rightarrow\) D : 1 min (Total : 8)</li>
+                            <li>D \(\rightarrow\) V : 3 min (Total : 11)</li>
+                        </ul>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div>
+    </div>
+
+
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.td-content').forEach(el => el.classList.remove('active'));
+            // Remove active class from tabs
+            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+
+            // Show selected content
+            document.getElementById(tabId).classList.add('active');
+            // Add active class to clicked tab
+            // Note: This simple implementation assumes the order matches. 
+            // Better to find by text or add IDs to tabs.
+            const tabs = document.querySelectorAll('.nav-tab');
+            if (tabId === 'td2') tabs[0].classList.add('active');
+            if (tabId === 'td3') tabs[1].classList.add('active');
+        }
+
+        // Toggle Correction Logic
+        function toggleCorrection(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'block') {
+                el.style.display = 'none';
+            } else {
+                el.style.display = 'block';
+            }
+        }
+
+        // Toggle Data Info Logic
+        function toggleDataInfo(id) {
+            const el = document.getElementById(id);
+            if (el.style.display === 'block') {
+                el.style.display = 'none';
+            } else {
+                el.style.display = 'block';
+            }
+        }
+
+        // ACP Chart (TD2)
+        const ctxACP = document.getElementById('acpChart').getContext('2d');
+        const acpChart = new Chart(ctxACP, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Véhicules',
+                    data: [
+                        { x: 1.759, y: -1.780, label: 'V1' },
+                        { x: -1.331, y: 0.113, label: 'V2' },
+                        { x: 0.121, y: -0.846, label: 'V3' },
+                        { x: 1.484, y: 2.122, label: 'V4' },
+                        { x: 1.431, y: 0.326, label: 'V5' },
+                        { x: -3.465, y: 0.064, label: 'V6' }
+                    ],
+                    backgroundColor: '#c2185b',
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Carte Factorielle des Individus (F1, F2)'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.raw.label || '';
+                                return label + ': (' + context.raw.x + ', ' + context.raw.y + ')';
+                            }
+                        }
+                    },
+                    annotation: {
+                        // Note: Annotation plugin not loaded, but we can rely on grid lines
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'F1 (3.521 - 70.4%)' },
+                        grid: { color: (ctx) => ctx.tick.value === 0 ? '#000' : '#e0e0e0', lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1 }
+                    },
+                    y: {
+                        title: { display: true, text: 'F2 (1.417 - 28.3%)' },
+                        grid: { color: (ctx) => ctx.tick.value === 0 ? '#000' : '#e0e0e0', lineWidth: (ctx) => ctx.tick.value === 0 ? 2 : 1 }
+                    }
+                }
+            }
+        });
+
+        // TD3 Exercise 1 Graph
+        var nodesEx1 = new vis.DataSet([
+            { id: 'A', label: 'A' },
+            { id: 'B', label: 'B' },
+            { id: 'C', label: 'C' },
+            { id: 'D', label: 'D' },
+            { id: 'E', label: 'E' }
+        ]);
+        var edgesEx1 = new vis.DataSet([
+            { from: 'A', to: 'B' },
+            { from: 'A', to: 'C' },
+            { from: 'A', to: 'D' },
+            { from: 'A', to: 'E' },
+            { from: 'B', to: 'C' },
+            { from: 'B', to: 'D' },
+            { from: 'B', to: 'E' },
+            { from: 'C', to: 'D' },
+            { from: 'D', to: 'E' }
+        ]);
+        var containerEx1 = document.getElementById('mynetwork');
+        var dataEx1 = { nodes: nodesEx1, edges: edgesEx1 };
+        var optionsEx1 = {
+            nodes: { shape: 'circle', color: { background: '#bbdefb', border: '#0d47a1' }, font: { color: '#0d47a1', bold: true } },
+            edges: { color: '#1565c0', width: 2 },
+            physics: { enabled: false }
+        };
+        new vis.Network(containerEx1, dataEx1, optionsEx1);
+
+        // TD3 Exercise 1 Colored Graph (Q5 Correction)
+        var nodesEx1Colored = new vis.DataSet([
+            { id: 'A', label: 'A', color: { background: '#ffcdd2', border: '#b71c1c' } }, // Red
+            { id: 'B', label: 'B', color: { background: '#c8e6c9', border: '#1b5e20' } }, // Green
+            { id: 'C', label: 'C', color: { background: '#fff9c4', border: '#fbc02d' } }, // Yellow (Same as E, stable set {E,C})
+            { id: 'D', label: 'D', color: { background: '#bbdefb', border: '#0d47a1' } }, // Blue
+            { id: 'E', label: 'E', color: { background: '#fff9c4', border: '#fbc02d' } }  // Yellow
+        ]);
+        var containerEx1Colored = document.getElementById('mynetwork-ex1-colored');
+        var dataEx1Colored = { nodes: nodesEx1Colored, edges: edgesEx1 }; // Reuse edges
+        var optionsEx1Colored = {
+            nodes: { shape: 'circle', font: { color: '#333' } },
+            edges: { color: '#999' },
+            physics: { enabled: false }
+        };
+        new vis.Network(containerEx1Colored, dataEx1Colored, optionsEx1Colored);
+
+        // TD3 Exercise 2 Graph (Incompatibilities)
+        var nodesEx2 = new vis.DataSet([
+            { id: 'G1', label: 'G1 (A,B)', color: { background: '#ffcdd2', border: '#b71c1c' } }, // Créneau 1 (Red-ish)
+            { id: 'G2', label: 'G2 (A,C)', color: { background: '#c8e6c9', border: '#1b5e20' } }, // Créneau 2 (Green-ish)
+            { id: 'G3', label: 'G3 (B,D)', color: { background: '#c8e6c9', border: '#1b5e20' } }, // Créneau 2
+            { id: 'G4', label: 'G4 (C,D)', color: { background: '#ffcdd2', border: '#b71c1c' } }, // Créneau 1
+            { id: 'G5', label: 'G5 (B,C)', color: { background: '#bbdefb', border: '#0d47a1' } }  // Créneau 3 (Blue-ish)
+        ]);
+        // Edges based on common jury members
+        // G1(A,B): G2(A), G3(B), G5(B)
+        // G2(A,C): G1(A), G4(C), G5(C)
+        // G3(B,D): G1(B), G4(D), G5(B)
+        // G4(C,D): G2(C), G3(D), G5(C)
+        // G5(B,C): G1(B), G2(C), G3(B), G4(C)
+        var edgesEx2 = new vis.DataSet([
+            { from: 'G1', to: 'G2' }, { from: 'G1', to: 'G3' }, { from: 'G1', to: 'G5' },
+            { from: 'G2', to: 'G4' }, { from: 'G2', to: 'G5' },
+            { from: 'G3', to: 'G4' }, { from: 'G3', to: 'G5' },
+            { from: 'G4', to: 'G5' }
+        ]);
+        var containerEx2 = document.getElementById('mynetwork-ex2');
+        var dataEx2 = { nodes: nodesEx2, edges: edgesEx2 };
+        var optionsEx2 = {
+            nodes: { shape: 'ellipse', font: { color: '#333' } },
+            edges: { color: '#ccc' },
+            physics: { enabled: true, solver: 'forceAtlas2Based' }
+        };
+        new vis.Network(containerEx2, dataEx2, optionsEx2);
+
+        // Vis.js - Ex 3 Graph (Network)
+        const nodesEx3 = new vis.DataSet([
+            { id: 'E', label: 'Entrepot (E)', color: '#ef9a9a' },
+            { id: 'A', label: 'A', color: '#ffcc80' },
+            { id: 'B', label: 'B', color: '#ffcc80' },
+            { id: 'C', label: 'C', color: '#ffcc80' },
+            { id: 'D', label: 'D', color: '#ffcc80' },
+            { id: 'F', label: 'F', color: '#ffcc80' },
+            { id: 'V', label: 'Client (V)', color: '#a5d6a7' }
+        ]);
+
+        // Edges derived from the Dijkstra table:
+        // E-A: 10, E-B: 5, E-F: 5
+        // B-C: 2, B-D: 7 (implied by update from 12 to 8 via C, wait. B->D was 12. So 5+7=12. Yes.)
+        // C-D: 1 (7+1=8)
+        // F-V: 7 (5+7=12)
+        // D-V: 3 (8+3=11)
+        const edgesEx3 = new vis.DataSet([
+            { from: 'E', to: 'A', label: '10' },
+            { from: 'E', to: 'B', label: '5' },
+            { from: 'E', to: 'F', label: '5' },
+            { from: 'A', to: 'F', label: '3' },
+            { from: 'A', to: 'C', label: '2' },
+            { from: 'F', to: 'V', label: '7' },
+            { from: 'B', to: 'C', label: '2' },
+            { from: 'B', to: 'D', label: '7' },
+            { from: 'C', to: 'D', label: '1' },
+            { from: 'C', to: 'V', label: '15' },
+            { from: 'D', to: 'V', label: '3' }
+        ]);
+
+        const containerEx3 = document.getElementById('mynetwork-ex3');
+        const dataEx3 = { nodes: nodesEx3, edges: edgesEx3 };
+        const optionsEx3 = {
+            nodes: { shape: 'box', font: { size: 16 } },
+            edges: { font: { align: 'top' }, arrows: 'to' },
+            physics: { stabilization: true }
+        };
+        new vis.Network(containerEx3, dataEx3, optionsEx3);
+    </script>
+</body>
+
+</html>

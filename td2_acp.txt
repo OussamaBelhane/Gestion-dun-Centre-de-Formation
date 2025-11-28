@@ -1,0 +1,241 @@
+Révision : Analyse en Composantes Principales (ACP)
+Élément : Analyse des données
+Niveau : 4ème Année IIR
+
+Année Scolaire : 2025/2026
+
+Exercice : Efficacité énergétique des véhicules électriques
+On étudie 6 véhicules électriques décrits par 5 variables : Autonomie (km), Temps de charge
+(h), Poids (kg), Puissance (kW), Prix (kDH).
+
+Données
+Véhicule
+
+Autonomie
+
+T. charge
+
+Poids
+
+Puissance
+
+Prix
+
+V1
+V2
+V3
+V4
+V5
+V6
+
+496
+419
+451
+508
+481
+354
+
+4.29
+5.77
+5.01
+5.91
+5.09
+6.80
+
+1610
+1669
+1640
+1719
+1672
+1655
+
+171
+143
+155
+173
+171
+128
+
+469
+424
+448
+488
+481
+395
+
+I. Analyse des variables
+1. Compléter le tableau centré-réduit.
+Véhicule
+
+Autonomie
+
+T. charge
+
+Poids
+
+Puissance
+
+Prix
+
+V1
+V2
+V3
+V4
+V5
+V6
+
+0.846
+-0.618
+-0.010
+...
+0.561
+-1.853
+
+...
+0.366
+-0.588
+0.542
+-0.488
+1.661
+
+-1.530
+...
+-0.627
+1.750
+0.336
+-0.176
+
+0.844
+-0.825
+-0.109
+0.964
+0.844
+-1.719
+
+0.553
+-0.817
+-0.086
+1.132
+0.919
+-1.701
+
+2. Compléter la matrice de corrélation suivante :
+
+Autonomie
+T. charge
+Poids
+Puissance
+Prix
+
+Autonomie
+
+T. charge
+
+Poids
+
+Puissance
+
+Prix
+
+1.000
+...
+0.159
+0.987
+...
+
+...
+1.000
+...
+-0.707
+-0.622
+
+0,159
+...
+1.000
+0.141
+0.266
+
+0,987
+-0.707
+0.141
+1.000
+0.990
+
+...
+-0.622
+0.266
+0.990
+1.000
+
+3. Identifier les couples de variables les plus corrélés (positivement/négativement) et commenter.
+4. Interpréter la présence de corrélations négatives.
+
+II. Analyse en composantes principales (ACP)
+On réalise une ACP sur les 5 variables (centrées-réduites).
+1
+
+Valeurs propres et inerties
+λ1 = 3.521,
+
+λ2 = 1.417,
+
+λ3 = 0.044,
+
+λ4 = 0.017,
+
+λ5 = 0.001.
+
+5. Que représentent les valeurs propres associées aux axes principaux ?
+6. À quoi correspond la somme des valeurs propres ?
+
+Vecteurs propres normalisés
+U1
+
+U2
+
+U3
+
+U4
+
+U5
+
+Autonomie 0.527 0.091 -0.076 0.817 -0.203
+T_charge -0.418 0.505 0.705 0.257 -0.087
+Poids
+0.028 0.834 -0.519 -0.123 0.141
+Puissance
+0.528 0.083 0.393 -0.130 0.737
+Prix
+0.518 0.186 0.273 -0.484 -0.623
+7. On choisit de n’étudier que les deux premières composantes principales. Justifier ce choix.
+8. Quelle part d’inertie totale sera alors représentée ?
+9. Calculer les valeurs des composantes principales manquantes des individus après la projection sur les axes principaux, F1 et F2 .
+Véhicule Composante 1
+V1
+V2
+V3
+V4
+V5
+V6
+
+1.759
+...
+0.121
+1.484
+...
+-3.465
+
+Composante 2
+...
+0.113
+...
+2.122
+0.326
+0.064
+
+10. Représenter les véhicules sur les axes principaux, F1 et F2 .
+11. Interprétation : Quels véhicules se ressemblent le plus ? Lesquels se distinguent nettement ?
+
+2
+
+

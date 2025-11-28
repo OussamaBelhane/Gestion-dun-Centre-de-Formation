@@ -1,0 +1,211 @@
+Corrigé Complet – Analyse en Composantes Principales
+(ACP)
+Série : Efficacité énergétique des véhicules électriques
+
+I. Analyse des variables
+Moyennes et écarts-types
+Variable
+
+Moyenne Écart-type
+
+Autonomie
+T charge
+Poids
+
+451.500
+5.478
+1660.833
+
+52.608
+0.796
+33.234
+
+1. Matrice centrée-réduite
+
+V1
+V2
+Z = V3
+V4
+V5
+V6
+
+Autonomie T charge Poids Puissance
+Prix
+0.846
+-1.493 −1.530
+0.844
+0.553
+−0.618
+0.366 0.246
+−0.825 −0.817
+−0.010
+−0.588 −0.627
+−0.109 −0.086
+1.074
+0.542
+1.750
+0.964
+1.132
+0.561
+−0.488
+0.336
+0.844
+0.919
+−1.853
+1.661 −0.176
+−1.719 −1.701
+
+2. Matrice de corrélation
+Autonomie T charge Poids Puissance
+Prix
+Autonomie
+1.000
+-0.709
+0.159
+0.987 0.976
+T charge
+-0.709
+1.000 0.539
+−0.707 −0.622
+R=
+P oids
+0.159
+0.539 1.000
+0.141
+0.266
+P uissance
+0.987
+−0.707 0.141
+1.000
+0.990
+P rix
+0.976
+−0.622 0.266
+0.990
+1.000
+
+3. Couples les plus corrélés
+Corrélations positives très fortes :
+• Puissance – Prix : 0.990
+• Autonomie – Puissance : 0.987
+• Autonomie – Prix : 0.976
+Corrélations négatives :
+1
+
+• Autonomie – Temps de charge : −0.709
+• Puissance – Temps de charge : −0.707
+
+4. Interprétation
+Interprétation corrélations négatives : les véhicules performants (autonomie et puissance
+élevées) ont aussi un temps de charge faible.
+Interprétation corrélations positives : les véhicules performants (autonomie et puissance élevées) ont aussi un prix élevé.
+
+II. Analyse en composantes principales
+Valeurs propres
+λ1 = 3.521,
+
+λ2 = 1.417,
+
+λ3 = 0.044,
+
+λ4 = 0.017,
+
+λ5 = 0.001.
+
+5. Valeurs propres
+Elles représentent la part de variance (inertie) expliquée par chaque axe principal.
+
+6. La somme des valeurs propres
+X
+
+λj = 5 = Ig
+
+correspond à l’inertie totale du nuage (car 5 variables centrées-réduites).
+
+7. Justification du choix F1–F2
+Selon la règle de Kaiser (λj > 1), on conserve uniquement les axes F1 et F2.
+
+8. La part d’inertie totale
+Les deux premiers axes représentent environ 98,76 % de l’inertie totale.
+Inertie totale expliquée par F1–F2 =
+
+3.521 + 1.417
+λ1 + λ2
+=
+= 98.76%.
+Ig
+5
+
+Deux axes suffisent pour représenter presque toute l’information.
+
+2
+
+Vecteurs propres
+U1
+Autonomie
+0.527
+T charge −0.418
+U=
+0.028
+Poids
+Puissance
+0.528
+0.518
+Prix
+
+U2
+U3
+U4
+U5
+0.091 −0.076
+0.817 −0.203
+0.505
+0.705
+0.257 −0.087
+0.834 −0.519 −0.123
+0.141
+0.083
+0.393 −0.130
+0.737
+0.186
+0.273 −0.484 −0.623
+
+9. Calcul des composantes principales
+Les composantes principales se calculent à l’aide de la formule matricielle :
+C = Xcr · U
+où :
+• Xcr est la matrice des données centrées-réduites,
+• U est la matrice des vecteurs propres,
+• C est la matrice des composantes principales.
+
+V1
+V2
+C = V3
+V4
+V5
+V6
+
+C1
+C2
+1.759 −1.780
+−1.331
+0.113
+0.121 −0.846
+1.484
+2.122
+1.431
+0.326
+−3.465
+0.064
+
+10. Représentation des individus sur les 2 axes principaux
+
+3
+
+11. Interprétation
+Les véhicules qui se ressemblent le plus par rapport le premier axe : V4 et V5
+Les véhicules les plus différents : V4 et V6.
+
+4
+
+
