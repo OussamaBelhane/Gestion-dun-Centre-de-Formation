@@ -22,10 +22,16 @@
             </div>
         </a>
 
-        <a href="/Admin/Instructors" class="nav-link rounded-0 py-3 px-4 @(currentPath.Contains("/admin/instructors") ? "active" : "")">
+        <a href="/Admin/Instructors" class="nav-link rounded-0 py-3 px-4 @(currentPath.Contains("/admin/instructors") && !currentPath.Contains("/admin/instructors/requests") ? "active" : "")">
             <div class="d-flex align-items-center gap-3">
                 <i class="bi bi-person-badge-fill"></i>
                 <span class="fw-bold text-uppercase">Instructors</span>
+            </div>
+        </a>
+        <a href="/Admin/Instructors/Requests" class="nav-link rounded-0 py-3 px-4 @(currentPath.Contains("/admin/instructors/requests") ? "active" : "")">
+            <div class="d-flex align-items-center gap-3">
+                <i class="bi bi-person-plus-fill"></i>
+                <span class="fw-bold text-uppercase">Requests</span>
             </div>
         </a>
 

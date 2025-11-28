@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GestionCentreDeFormation")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c48625ab2b750becbcf3ceacf41a74fa9f8c1369")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cdb3ab706e36ae0ea7ad7ab15ac977bba36d294d")]
 [assembly: System.Reflection.AssemblyProductAttribute("GestionCentreDeFormation")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GestionCentreDeFormation")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

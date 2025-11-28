@@ -146,8 +146,18 @@ public class IndexModel : PageModel
         if (existingEnrollment != null)
         {
             TempData["Message"] = "You are already enrolled in this course.";
-            return RedirectToPage("./Index"); // Or redirect to MyCourses
+            return RedirectToPage("./Index");
         }
+
+        // Balance Check
+        if (user.Balance < course.Price)
+        {
+            TempData["ErrorMessage"] = $"Insufficient funds. You have {user.Balance} MAD but the course costs {course.Price} MAD.";
+            return RedirectToPage();
+        }
+
+        // Deduct Balance
+        user.Balance -= course.Price;
 
         // Create Enrollment
         var enrollment = new Enrollment
@@ -159,8 +169,9 @@ public class IndexModel : PageModel
         };
 
         _context.Enrollments.Add(enrollment);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(); // Saves both the enrollment and the user balance update
 
+        TempData["Message"] = $"Successfully enrolled! {course.Price} MAD has been deducted from your balance.";
         return RedirectToPage("/Students/MyCourses");
     }
 }

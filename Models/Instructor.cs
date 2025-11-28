@@ -19,5 +19,8 @@ public class Instructor
 
     public string? ImageUrl { get; set; }
 
+    public string? ApplicationUserId { get; set; }
+    public ApplicationUser? ApplicationUser { get; set; }
+
     public ICollection<Course> Courses { get; set; } = new List<Course>();
 }
