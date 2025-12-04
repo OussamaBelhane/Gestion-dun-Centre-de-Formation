@@ -1,0 +1,91 @@
+@page
+@model GestionCentreDeFormation.Pages.Planning.IndexModel
+@{
+    ViewData["Title"] = "My Planning";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="display-4 fw-black text-uppercase m-0">My Planning</h1>
+            <p class="lead text-muted fw-bold">
+                @(Model.IsInstructor ? "Your teaching schedule" : "Your upcoming classes")
+            </p>
+        </div>
+        <div class="d-flex gap-2">
+            <span class="badge bg-black text-white rounded-0 p-2 fs-6 border border-dark">
+                <i class="bi bi-calendar-week me-2"></i> @DateTime.Now.ToString("MMMM yyyy")
+            </span>
+        </div>
+    </div>
+
+    @if (!Model.ScheduledCourses.Any())
+    {
+        <div class="alert alert-info border-2 border-dark rounded-0 fw-bold p-5 text-center">
+            <i class="bi bi-calendar-x fs-1 d-block mb-3"></i>
+            <h4 class="text-uppercase">No scheduled classes</h4>
+            <p class="mb-0">You don't have any active courses in your planning at the moment.</p>
+            @if (!Model.IsInstructor)
+            {
+                <a asp-page="/Courses/Index" class="btn btn-dark rounded-0 mt-3 fw-bold text-uppercase">Browse Courses</a>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="agenda-timeline">
+            @foreach (var course in Model.ScheduledCourses)
+            {
+                <div class="row mb-4">
+                    <!-- Date Column -->
+                    <div class="col-md-2 text-md-end">
+                        <div class="d-inline-block text-center bg-black text-white p-2 border border-dark mb-2 mb-md-0" style="min-width: 80px;">
+                            <span class="d-block fs-4 fw-black lh-1">@course.StartDate.ToString("dd")</span>
+                            <span class="d-block small text-uppercase fw-bold">@course.StartDate.ToString("MMM")</span>
+                        </div>
+                    </div>
+
+                    <!-- Content Column -->
+                    <div class="col-md-10">
+                        <div class="card border-2 border-dark rounded-0 shadow-sm">
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h4 class="fw-black text-uppercase mb-1">@course.Title</h4>
+                                        <p class="text-muted small fw-bold mb-0">
+                                            <i class="bi bi-clock me-2"></i> @course.StartDate.ToString("HH:mm") - @course.EndDate.ToString("HH:mm")
+                                            <span class="mx-2">|</span>
+                                            <i class="bi bi-calendar-range me-2"></i> Ends @course.EndDate.ToString("MMM dd, yyyy")
+                                        </p>
+                                    </div>
+                                    @if (Model.IsInstructor)
+                                    {
+                                        <span class="badge bg-primary rounded-0 text-uppercase border border-dark">Instructor</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success rounded-0 text-uppercase border border-dark">Student</span>
+                                    }
+                                </div>
+
+                                <div class="d-flex align-items-center justify-content-between mt-4 pt-3 border-top border-secondary border-opacity-25">
+                                    <div class="d-flex align-items-center">
+                                        <img src="@(course.Instructor?.ImageUrl ?? "https://via.placeholder.com/40")" 
+                                             class="rounded-circle border border-dark" width="40" height="40" alt="@course.Instructor?.Name">
+                                        <div class="ms-3">
+                                            <h6 class="fw-bold text-uppercase mb-0">@course.Instructor?.Name</h6>
+                                            <small class="text-muted">Instructor</small>
+                                        </div>
+                                    </div>
+                                    <a asp-page="/Courses/Details" asp-route-id="@course.Id" class="btn btn-sm btn-outline-dark rounded-0 fw-bold text-uppercase">
+                                        View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

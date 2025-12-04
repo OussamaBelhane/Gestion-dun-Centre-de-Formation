@@ -1,0 +1,34 @@
+@page
+@model GestionCentreDeFormation.Pages.Admin.Instructors.DetailsModel
+
+@{
+    ViewData["Title"] = "Instructor Details";
+    Layout = "_AdminLayout";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="admin-card">
+            <div class="d-flex justify-content-between align-items-start mb-4 border-bottom border-2 border-dark pb-4">
+                <div>
+                    <h2 class="fw-black text-uppercase mb-1">@Model.Instructor.Name</h2>
+                    <p class="lead text-muted fw-bold mb-0">@Model.Instructor.Title</p>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.Instructor.ImageUrl))
+                {
+                    <img src="@Model.Instructor.ImageUrl" alt="@Model.Instructor.Name" class="rounded-circle border border-2 border-dark" width="100" height="100" style="object-fit: cover;">
+                }
+            </div>
+
+            <div class="mb-4">
+                <h5 class="fw-black text-uppercase mb-3">Biography</h5>
+                <p class="fw-bold text-muted">@Model.Instructor.Bio</p>
+            </div>
+
+            <div class="d-flex justify-content-between mt-5">
+                <a asp-page="./Index" class="btn btn-outline-dark rounded-0 fw-bold text-uppercase border-2 px-4">Back to List</a>
+                <a asp-page="./Edit" asp-route-id="@Model.Instructor.Id" class="btn btn-admin btn-admin-primary px-5">Edit Instructor</a>
+            </div>
+        </div>
+    </div>
+</div>
